@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  aura-bridge:
+    build: .
+    ports: ["8000:8000"]
+    volumes:
+      - ./aura_data:/data
+      - ./aura_meta.db:/app/aura_meta.db
+    environment:
+      - AURA_API_KEY=changeme_replace_with_strong_key
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - RCLONE_REMOTE=icloud:
