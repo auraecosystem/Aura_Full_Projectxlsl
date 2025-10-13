@@ -1,214 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Aura Quantum Lab with AI Teacher</title>
-<link rel="stylesheet" href="style.css">
-<script type="module" src="./js/lab.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aura Quantum Lab — Vocal AI Teacher</title>
+<style>
+  :root{
+    --bg:#02061a; --glass:rgba(255,255,255,0.03); --accent:#7bd389; --muted:#9aa7b2;
+    --accent2:#61a0ff; --radius:12px; --pad:16px; --sans:Inter,system-ui,Segoe UI,Roboto,Arial;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:var(--sans);background:radial-gradient(circle at 25% 15%, #021028 0%, #000 70%);color:#e8f6f9;overflow:hidden}
+  #earthCanvas{position:fixed;inset:0;z-index:0;width:100%;height:100%}
+  .app{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;padding:20px;gap:12px;height:100%;overflow:auto}
+  header{text-align:center;margin-top:6px}
+  h1{margin:0;font-size:1.6rem;color:var(--accent2);text-shadow:0 0 8px rgba(97,160,255,0.12)}
+  .tag{color:var(--muted);margin-top:6px;font-size:0.95rem}
+  .grid{width:95%;max-width:1200px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin:18px 0}
+  .card{background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.01));padding:14px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+  h2{margin:0 0 8px 0;font-size:1.05rem}
+  input[type="text"],textarea,select{width:100%;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit;font-size:0.95rem}
+  textarea{min-height:80px;resize:vertical}
+  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  button{background:linear-gradient(180deg,var(--accent),#3db56a);color:#03190f;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+  button.gray{background:linear-gradient(180deg,#1f2a38,#12202c);color:var(--muted)}
+  .result{margin-top:10px;padding:10px;border-radius:8px;background:rgba(0,0,0,0.2);color:#f6fff9}
+  .hint{margin-top:6px;color:var(--muted);font-size:0.92rem}
+  canvas#quantumCanvas{width:100%;height:140px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.02);display:block}
+  footer{color:var(--muted);font-size:0.9rem;margin:18px 0}
+  .examples{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);cursor:pointer;border:1px solid rgba(255,255,255,0.02)}
+  .controls{display:flex;gap:8px;align-items:center}
+  @media (max-width:720px){h1{font-size:1.3rem}}
+</style>
 </head>
 <body>
-    <script>
-        
-    < **style.css** >
-        :root{
-  --bg: #0f1724;
-  --card: #0b1220;
-  --accent: #7bd389;
-  --muted: #9aa7b2;
-  --glass: rgba(255,255,255,0.03);
-  --glass-2: rgba(255,255,255,0.02);
-  --accent-2: #61a0ff;
-  --radius: 12px;
-  --pad: 16px;
-  --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+<canvas id="earthCanvas"></canvas>
+
+<div class="app">
+  <header>
+    <h1>Aura Quantum Lab — Vocal AI Teacher</h1>
+    <div class="tag">The lab speaks. Try math, physics, chemistry, and quantum examples — teacher will narrate results.</div>
+  </header>
+
+  <main class="grid">
+
+    <!-- Math & Applied Math / Physics -->
+    <section class="card" id="mathCard">
+      <h2>Math & Applied Formulas</h2>
+      <input id="mathInput" placeholder='Expressions: use functions like sin(), sqrt(), pow(), c, h, k_B' />
+      <div class="examples" id="mathExamples"></div>
+
+      <div class="row">
+        <button id="computeBtn">Compute & Speak</button>
+        <button class="gray" id="clearMathBtn">Clear</button>
+        <label class="controls" title="Voice">
+          <input type="checkbox" id="autoSpeakMath" checked/> Auto-speak
+        </label>
+      </div>
+
+      <p id="mathResult" class="result"></p>
+      <p id="mathHint" class="hint"></p>
+    </section>
+
+    <!-- Chemistry -->
+    <section class="card" id="chemCard">
+      <h2>Chemistry & Quantum Chemistry</h2>
+      <small>JSON: {"reactants":{"H2":2,"O2":1},"products":{"H2O":2}}</small>
+      <textarea id="chemInput'>{"reactants":{"H2":2,"O2":1},"products":{"H2O":2}}</textarea>
+      <div class="examples" id="chemExamples"></div>
+
+      <div class="row">
+        <button id="simulateBtn">Simulate & Speak</button>
+        <button class="gray" id="clearChemBtn">Clear</button>
+        <label class="controls" title="Voice">
+          <input type="checkbox" id="autoSpeakChem" checked/> Auto-speak
+        </label>
+      </div>
+
+      <p id="chemResult" class="result"></p>
+      <p id="chemHint" class="hint"></p>
+    </section>
+
+    <!-- Quantum -->
+    <section class="card" id="quantCard">
+      <h2>Quantum Playground (1 qubit)</h2>
+      <canvas id="quantumCanvas" width="600" height="260"></canvas>
+
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <button data-gate="H" class="gateBtn">H</button>
+        <button data-gate="X" class="gateBtn">X</button>
+        <button data-gate="Y" class="gateBtn">Y</button>
+        <button data-gate="Z" class="gateBtn">Z</button>
+        <button data-gate="S" class="gateBtn">S</button>
+        <button data-gate="T" class="gateBtn">T</button>
+        <button id="measureBtn">Measure (speak)</button>
+        <button class="gray" id="resetQBtn">Reset</button>
+        <label class="controls" title="Voice"><input type="checkbox" id="autoSpeakQuantum" checked/> Auto-speak</label>
+      </div>
+
+      <div class="row" style="margin-top:8px">
+        <button id="histBtn" class="gray">Measure 100x → histogram</button>
+        <button id="collapseBtn" class="gray">Collapse to |0⟩</button>
+      </div>
+
+      <p id="quantResult" class="result"></p>
+      <p id="quantHint" class="hint"></p>
+    </section>
+
+  </main>
+
+  <footer>© Aura Quantum Lab — vocal tutor for curious minds.</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<script>
+/* ====================
+   SAFE MATH EVALUATOR
+   (Shunting-yard -> RPN -> eval)
+   ==================== */
+const MathFns = {
+  sin: Math.sin, cos: Math.cos, tan: Math.tan,
+  asin: Math.asin, acos: Math.acos, atan: Math.atan,
+  sqrt: Math.sqrt, log: Math.log, ln: Math.log, exp: Math.exp,
+  abs: Math.abs, pow: Math.pow, floor: Math.floor, ceil: Math.ceil,
+  round: Math.round, max: Math.max, min: Math.min,
+  // physical constants
+  PI: Math.PI, E: Math.E,
+  c: 299792458, // m/s
+  h: 6.62607015e-34, // J*s
+  hbar: 1.054571817e-34,
+  k_B: 1.380649e-23, // J/K
+  G: 6.67430e-11, // m^3 kg^-1 s^-2
+  e: 1.602176634e-19 // Coulomb
+};
+
+function tokenize(expr){
+  const re = /\s*([A-Za-z_]\w*|\d*\.?\d+(?:e[+\-]?\d+)?|[()+\-*/^,])\s*/g;
+  const out=[]; let m;
+  while((m=re.exec(expr))!==null) out.push(m[1]);
+  return out;
 }
+const prec = {'+':2,'-':2,'*':3,'/':3,'^':4};
+const rightAssoc = {'^':true};
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:var(--sans);
-  background: linear-gradient(180deg, #071020 0%, var(--bg) 60%);
-  color:#e6eef6;
-  -webkit-font-smoothing:antialiased;
-  padding:28px;
-}
-
-header{margin-bottom:18px}
-h1{margin:0;font-size:1.6rem;letter-spacing:0.2px}
-.tagline{color:var(--muted);margin:6px 0 0;font-size:0.92rem}
-
-.grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap:18px;
-  align-items:start;
-}
-
-.card{
-  background: linear-gradient(180deg, var(--glass), var(--glass-2));
-  border-radius:var(--radius);
-  padding:16px;
-  box-shadow: 0 6px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.03);
-  transition:transform .15s ease, box-shadow .15s ease;
-}
-.card:hover{transform:translateY(-6px); box-shadow: 0 12px 40px rgba(2,6,23,0.75);}
-
-h2{margin-top:0;margin-bottom:8px;font-size:1.05rem}
-input[type="text"], textarea{
-  width:100%;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.04);
-  background:rgba(255,255,255,0.02);
-  color:inherit;
-  font-size:0.95rem;
-  outline:none;
-}
-textarea{min-height:86px;resize:vertical}
-
-.row{display:flex;gap:8px;margin-top:12px}
-button{
-  background:linear-gradient(180deg,var(--accent), #3db56a);
-  color:#042017;
-  border:none;
-  padding:8px 12px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
-  box-shadow: 0 4px 12px rgba(59,181,106,0.12);
-}
-button:hover{filter:brightness(.95); transform:translateY(-1px)}
-button:active{transform:translateY(0)}
-
-.result{margin-top:12px;padding:10px;border-radius:8px;background:rgba(0,0,0,0.12);color:#f7fff7}
-.hint{margin-top:6px;color:var(--muted);font-size:0.92rem}
-
-footer{margin-top:18px;text-align:center;color:var(--muted)}
-code{background:rgba(255,255,255,0.02);padding:3px 6px;border-radius:6px;color:var(--accent-2)}
-canvas{width:100%;height:auto;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.02);display:block}
-<header>
-  <h1>Aura Quantum Lab with AI Teacher</h1>
-  <p class="tagline">Math • Chemistry • Quantum — explained like a patient, slightly geeky mentor.</p>
-</header>
-
-<main class="grid">
-  <section class="card">
-    <h2>Math & Equations</h2>
-    <input id="mathInput" type="text" placeholder="Examples: 2+2*3, sin(PI/4)^2 + sqrt(2)">
-    <div class="row">
-      <button id="computeBtn">Compute</button>
-      <button id="clearMath">Clear</button>
-    </div>
-    <p id="mathResult" class="result"></p>
-    <p id="mathHint" class="hint"></p>
-  </section>
-
-  <section class="card">
-    <h2>Chemistry Simulator</h2>
-    <small>JSON format: <code>{"reactants": {"H2":2, "O2":1}, "products": {"H2O":2}}</code></small>
-    <textarea id="chemInput">{"reactants":{"H2":2,"O2":1},"products":{"H2O":2}}</textarea>
-    <div class="row">
-      <button id="simulateBtn">Simulate Reaction</button>
-      <button id="clearChem">Clear</button>
-    </div>
-    <p id="chemResult" class="result"></p>
-    <p id="chemHint" class="hint"></p>
-  </section>
-
-  <section class="card">
-    <h2>Quantum Playground</h2>
-    <canvas id="quantumCanvas" width="380" height="230" aria-label="Quantum visualizer"></canvas>
-    <div class="row">
-      <button id="runQuantum">Run Quantum Demo</button>
-      <button id="measureQuantum">Measure</button>
-      <button id="resetQuantum">Reset</button>
-    </div>
-    <p id="quantumResult" class="result"></p>
-    <p id="quantumHint" class="hint"></p>
-  </section>
-</main>
-
-<footer>
-  <small>Built by Aura Quantum Lab • Friendly AI teacher included</small>
-</footer>
-
-<script type="module">
-import { runLabDemo, AITeacher, reactionEnergy } from './js/lab.js';
-import * as Quantum from './js/quantum.js';
-import { Visualizer } from './js/visualizer.js';
-
-// Wiring buttons (keeps HTML clean)
-document.getElementById('computeBtn').addEventListener('click', () => {
-  const formula = document.getElementById("mathInput").value.trim();
-  if (!formula) {
-    document.getElementById("mathResult").innerText = "Type an expression first.";
-    document.getElementById("mathHint").innerText = "";
-    return;
+function toRPN(tokens){
+  const out=[], ops=[];
+  for(let t of tokens){
+    if(!isNaN(Number(t))) { out.push(t); continue; }
+    if(/^[A-Za-z_]\w*$/.test(t)){
+      // function or constant
+      ops.push(t); continue;
+    }
+    if(t===','){ while(ops.length && ops[ops.length-1] !== '(') out.push(ops.pop()); continue; }
+    if(t in prec){
+      while(ops.length){
+        const top = ops[ops.length-1];
+        if(top in prec && ((rightAssoc[t] && prec[t] < prec[top]) || (!rightAssoc[t] && prec[t] <= prec[top]))){
+          out.push(ops.pop());
+        } else break;
+      }
+      ops.push(t); continue;
+    }
+    if(t==='('){ ops.push(t); continue; }
+    if(t===')'){
+      while(ops.length && ops[ops.length-1] !== '(') out.push(ops.pop());
+      if(!ops.length) throw new Error("Mismatched parentheses");
+      ops.pop();
+      if(ops.length && /^[A-Za-z_]/.test(ops[ops.length-1])) out.push(ops.pop());
+      continue;
+    }
+    throw new Error("Invalid token: "+t);
   }
-  try {
-    const result = AITeacher.safeEvaluate(formula);
-    document.getElementById("mathResult").innerText = "Result: " + result;
-    document.getElementById("mathHint").innerText = AITeacher.explainFormula(formula);
-  } catch (e) {
-    document.getElementById("mathResult").innerText = "Error: " + e.message;
-    document.getElementById("mathHint").innerText = "";
+  while(ops.length){
+    const o=ops.pop();
+    if(o==='('||o===')') throw new Error("Mismatched parentheses");
+    out.push(o);
   }
-});
-document.getElementById('clearMath').addEventListener('click', () => {
-  document.getElementById("mathInput").value = "";
-  document.getElementById("mathResult").innerText = "";
-  document.getElementById("mathHint").innerText = "";
-});
-
-document.getElementById('simulateBtn').addEventListener('click', () => {
-  try {
-    const obj = JSON.parse(document.getElementById("chemInput").value);
-    const energy = reactionEnergy(obj.reactants, obj.products);
-    document.getElementById("chemResult").innerText = `ΔH ≈ ${energy.toFixed(2)} kJ (negative = exothermic)`;
-    document.getElementById("chemHint").innerText = AITeacher.suggestChemistry(obj.reactants, obj.products, energy);
-  } catch (e) {
-    document.getElementById("chemResult").innerText = "Error parsing JSON: " + e.message;
-    document.getElementById("chemHint").innerText = 'Use the JSON format shown above.';
+  return out;
+}
+function evalRPN(rpn){
+  const st=[];
+  for(const t of rpn){
+    if(!isNaN(Number(t))){ st.push(Number(t)); continue; }
+    if(t in MathFns){
+      const f=MathFns[t];
+      if(typeof f === 'number'){ st.push(f); continue; }
+      // single-arg functions
+      const a=st.pop(); if(a===undefined) throw new Error("Insufficient args for "+t);
+      st.push(f(a)); continue;
+    }
+    if(/^[A-Za-z_]\w*$/.test(t)){
+      // support pow as function with 2 args
+      if(t==='pow'){ const b=st.pop(), a=st.pop(); st.push(Math.pow(a,b)); continue; }
+      const val = MathFns[t];
+      if(typeof val === 'number'){ st.push(val); continue; }
+      throw new Error("Unknown identifier: "+t);
+    }
+    if(t==='+'){ const b=st.pop(), a=st.pop(); st.push(a+b); continue; }
+    if(t==='-'){ const b=st.pop(), a=st.pop(); st.push(a-b); continue; }
+    if(t==='*'){ const b=st.pop(), a=st.pop(); st.push(a*b); continue; }
+    if(t==='/'){ const b=st.pop(), a=st.pop(); st.push(a/b); continue; }
+    if(t==='^'){ const b=st.pop(), a=st.pop(); st.push(Math.pow(a,b)); continue; }
+    throw new Error("Unsupported token in RPN: "+t);
   }
-});
-document.getElementById('clearChem').addEventListener('click', () => {
-  document.getElementById("chemInput").value = '';
-  document.getElementById("chemResult").innerText = '';
-  document.getElementById("chemHint").innerText = '';
-});
-
-// Quantum demo
-let currentState = Quantum.qubitZero();
-function updateQuantumUI(state) {
-  const qinfo = Quantum.stateInfo(state);
-  document.getElementById("quantumResult").innerText = qinfo.text;
-  document.getElementById("quantumHint").innerText = AITeacher.guideQuantum(state);
-  Visualizer.drawQuantum(state, "quantumCanvas");
+  if(st.length !== 1) throw new Error("Invalid expression");
+  return st[0];
+}
+function safeEvaluate(expr){
+  if(typeof expr !== 'string') throw new Error("Expression must be string");
+  if(/[^0-9A-Za-z_\.\^\+\-\*\/\(\)\,\s:eE]/.test(expr)) throw new Error("Forbidden characters");
+  const tokens = tokenize(expr);
+  const rpn = toRPN(tokens);
+  return evalRPN(rpn);
 }
 
-document.getElementById('runQuantum').addEventListener('click', () => {
-  currentState = Quantum.applyGate(Quantum.H, Quantum.qubitZero());
-  updateQuantumUI(currentState);
+/* ====================
+   AITeacher (speech + textual)
+   ==================== */
+const AITeacher = {
+  speakQueue: [],
+  speaking: false,
+  speak(text, opts = {rate:1, pitch:1, voice:null}) {
+    if(!('speechSynthesis' in window)) return; // no voice
+    const u = new SpeechSynthesisUtterance(String(text));
+    u.rate = opts.rate ?? 1;
+    u.pitch = opts.pitch ?? 1;
+    if(opts.voice) u.voice = opts.voice;
+    // queue to avoid overlap
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  },
+  briefExplainMath(expr, result){
+    return `Math result: ${result}. Expression used: ${expr}.`;
+  },
+  suggestChemistry(react, prod, energy){
+    const s = energy < 0 ? "Exothermic — energy released." : energy > 0 ? "Endothermic — energy absorbed." : "Approximately thermoneutral.";
+    return `Chemistry: ${s} ΔH ≈ ${energy.toFixed(2)} kilojoules per mole.`;
+  },
+  guideQuantumText(state){
+    const p0 = (state[0].re**2 + state[0].im**2);
+    const p1 = (state[1].re**2 + state[1].im**2);
+    return `Quantum amplitudes: zero probability ${ (p0*100).toFixed(1) } percent, one probability ${ (p1*100).toFixed(1) } percent.`;
+  }
+};
+
+/* ====================
+   Chemistry energy (simple) - extended lookup
+   ==================== */
+const formationEnthalpies = {
+  H2:0, O2:0, H2O:-241.8, CO2:-393.5, CH4:-74.8, CO:-110.5, N2:0, NH3:-45.9, H2O2:-187.8,
+  O3:142.7, NO2:33.2, SO2:-296.8
+};
+function reactionEnergy(reactants={}, products={}){
+  let rsum=0, psum=0;
+  for(const k in reactants){ const c = Number(reactants[k])||0; rsum += (formationEnthalpies[k] ?? 0) * c; }
+  for(const k in products){ const c = Number(products[k])||0; psum += (formationEnthalpies[k] ?? 0) * c; }
+  return psum - rsum; // kJ / mol approx
+}
+
+/* ====================
+   Quantum single-qubit utilities (complex)
+   ==================== */
+function C(re,im=0){ return {re,im}; }
+function add(a,b){ return C(a.re+b.re, a.im+b.im); }
+function mul(a,b){ return C(a.re*b.re - a.im*b.im, a.re*b.im + a.im*b.re); }
+function scale(a,k){ return C(a.re*k, a.im*k); }
+function conj(a){ return C(a.re,-a.im); }
+function mag2(a){ return a.re*a.re + a.im*a.im; }
+const invSqrt2 = 1/Math.sqrt(2);
+
+const QGates = {
+  H: [[C(invSqrt2),C(invSqrt2)],[C(invSqrt2),C(-invSqrt2)]],
+  X: [[C(0),C(1)],[C(1),C(0)]],
+  Y: [[C(0),C(0,-1)],[C(0,1),C(0)]],
+  Z: [[C(1),C(0)],[C(0),C(-1)]],
+  S: [[C(1),C(0)],[C(0),C(0,1)]],
+  T: [[C(1),C(0)],[C(0),C(Math.cos(Math.PI/4), Math.sin(Math.PI/4))]]
+};
+
+function qubitZero(){ return [C(1,0), C(0,0)]; }
+function qubitOne(){ return [C(0,0), C(1,0)]; }
+function applyGate(g,q){
+  const a = add(mul(g[0][0], q[0]), mul(g[0][1], q[1]));
+  const b = add(mul(g[1][0], q[0]), mul(g[1][1], q[1]));
+  const norm = Math.sqrt(mag2(a)+mag2(b)) || 1;
+  return [scale(a,1/norm), scale(b,1/norm)];
+}
+function measure(qubit){
+  const p0 = mag2(qubit[0]);
+  return Math.random() < p0 ? 0 : 1;
+}
+function stateProbabilities(qubit){
+  return {p0: mag2(qubit[0]), p1: mag2(qubit[1])};
+}
+
+/* ====================
+   UI wiring & examples
+   ==================== */
+const mathInput = document.getElementById('mathInput');
+const computeBtn = document.getElementById('computeBtn');
+const clearMathBtn = document.getElementById('clearMathBtn');
+const mathResult = document.getElementById('mathResult');
+const mathHint = document.getElementById('mathHint');
+const autoSpeakMath = document.getElementById('autoSpeakMath');
+
+const chemInput = document.getElementById('chemInput');
+const simulateBtn = document.getElementById('simulateBtn');
+const clearChemBtn = document.getElementById('clearChemBtn');
+const chemResult = document.getElementById('chemResult');
+const chemHint = document.getElementById('chemHint');
+const autoSpeakChem = document.getElementById('autoSpeakChem');
+
+const quantumCanvas = document.getElementById('quantumCanvas');
+const quantResult = document.getElementById('quantResult');
+const quantHint = document.getElementById('quantHint');
+const gateBtns = document.querySelectorAll('.gateBtn');
+const measureBtn = document.getElementById('measureBtn');
+const resetQBtn = document.getElementById('resetQBtn');
+const histBtn = document.getElementById('histBtn');
+const collapseBtn = document.getElementById('collapseBtn');
+const autoSpeakQuantum = document.getElementById('autoSpeakQuantum');
+
+let qstate = qubitZero();
+
+function drawQuantumVisual(state){
+  const ctx = quantumCanvas.getContext('2d');
+  const w = quantumCanvas.width, h = quantumCanvas.height;
+  ctx.clearRect(0,0,w,h);
+  // background
+  ctx.fillStyle = '#041229';
+  ctx.fillRect(0,0,w,h);
+  // probability bars
+  const p0 = mag2(state[0]), p1 = mag2(state[1]);
+  ctx.fillStyle = '#61a0ff'; ctx.fillRect(30, h-40, (w-60)*p0, 30);
+  ctx.fillStyle = '#7bd389'; ctx.fillRect(30, h-80, (w-60)*p1, 30);
+  ctx.fillStyle = '#fff'; ctx.fillText(`|0> ${(p0*100).toFixed(1)}%`, 32, h-22);
+  ctx.fillText(`|1> ${(p1*100).toFixed(1)}%`, 32, h-62);
+  // simple Bloch-ish vector (real projection)
+  const cx = w-120, cy = h/2, r = 50;
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.stroke();
+  const x = (state[0].re - state[1].re);
+  const y = (state[0].im - state[1].im);
+  const len = Math.sqrt(x*x + y*y) || 1;
+  const vx = cx + (x/len)*r; const vy = cy + (y/len)*r;
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(vx,vy); ctx.strokeStyle='#61a0ff'; ctx.lineWidth=2; ctx.stroke();
+}
+
+/* Example chips population */
+const mathExamples = [
+  {label:'Applied: Projectile energy', expr:'0.5 * m * v^2 (with m=10, v=20)'},
+  {label:'Physics: Relativistic energy', expr:'m*c^2 (with m=1.0)'},
+  {label:'Quantum: de Broglie λ', expr:'h / (m * v) (with m=9.11e-31, v=1e6)'},
+  {label:'Stat phys: Boltzmann factor', expr:'exp(-E/(k_B*T)) (with E=1e-20,T=300)'},
+  {label:'Math: Fourier-style', expr:'sin(2*PI*0.5)*exp(-0.1)'}
+];
+const chemExamples = [
+  {label:'Water formation', val:'{"reactants":{"H2":2,"O2":1},"products":{"H2O":2}}'},
+  {label:'Methane combustion', val:'{"reactants":{"CH4":1,"O2":2},"products":{"CO2":1,"H2O":2}}'}
+];
+
+function makeChips(container, list, clickFn){
+  for(const it of list){
+    const el = document.createElement('div'); el.className='chip';
+    el.textContent = it.label; el.title = it.expr ?? it.val;
+    el.onclick = ()=> clickFn(it);
+    container.appendChild(el);
+  }
+}
+makeChips(document.getElementById('mathExamples'), mathExamples, (it)=>{
+  // try to auto-inject numeric values for common placeholders
+  let ex = it.expr;
+  ex = ex.replace(/\(with ([^)]+)\)/, (m,vars)=>{
+    // parse "m=10, v=20"
+    const pairs = vars.split(',').map(s=>s.trim());
+    let code = it.expr.split(' (with')[0].trim();
+    for(const p of pairs){
+      const [k,v] = p.split('=').map(s=>s.trim());
+      code = code.replace(new RegExp('\\b'+k+'\\b','g'), v);
+    }
+    mathInput.value = code; return '';
+  });
+  if(!mathInput.value) mathInput.value = it.expr.split(' (with')[0];
 });
-document.getElementById('measureQuantum').addEventListener('click', () => {
-  const m = Quantum.measure(currentState);
-  document.getElementById("quantumResult").innerText = `Measured: |${m}|`;
-  document.getElementById("quantumHint").innerText = AITeacher.suggestNextStep("quantum");
-  // after measurement collapse:
-  currentState = (m === 0) ? Quantum.qubitZero() : Quantum.qubitOne();
-  Visualizer.drawQuantum(currentState, "quantumCanvas");
-});
-document.getElementById('resetQuantum').addEventListener('click', () => {
-  currentState = Quantum.qubitZero();
-  updateQuantumUI(currentState);
+makeChips(document.getElementById('chemExamples'), chemExamples, (it)=>{
+  chemInput.value = it.val;
 });
 
-// Start
-runLabDemo();
-updateQuantumUI(currentState);
+/* Compute button */
+computeBtn.addEventListener('click', ()=>{
+  const expr = mathInput.value.trim();
+  if(!expr){ mathResult.innerText='Type an expression.'; return; }
+  try{
+    const res = safeEvaluate(expr);
+    mathResult.innerText = 'Result: ' + res;
+    const hint = AITeacher.briefExplainMath(expr, res);
+    mathHint.innerText = hint;
+    if(autoSpeakMath.checked) AITeacher.speak(hint);
+  }catch(e){
+    mathResult.innerText = 'Error: ' + e.message;
+    if(autoSpeakMath.checked) AITeacher.speak('Error evaluating expression: ' + e.message);
+  }
+});
+clearMathBtn.addEventListener('click', ()=>{ mathInput.value=''; mathResult.innerText=''; mathHint.innerText=''; });
+
+/* Chemistry simulate */
+simulateBtn.addEventListener('click', ()=>{
+  try{
+    // support either full object or two objects comma-separated
+    let v = chemInput.value.trim();
+    let parsed;
+    try { parsed = JSON.parse(v); } catch(e){
+      // try array fallback
+      parsed = JSON.parse("[" + v + "]");
+      parsed = { reactants: parsed[0] || {}, products: parsed[1] || {} };
+    }
+    const r = parsed.reactants || parsed[0] || parsed;
+    const p = parsed.products || parsed[1] || parsed;
+    const energy = reactionEnergy(r,p);
+    chemResult.innerText = `ΔH ≈ ${energy.toFixed(2)} kJ/mol`;
+    const hint = AITeacher.suggestChemistry(r,p,energy);
+    chemHint.innerText = hint;
+    if(autoSpeakChem.checked) AITeacher.speak(hint);
+  }catch(err){
+    chemResult.innerText = 'Error parsing JSON: ' + err.message;
+    if(autoSpeakChem.checked) AITeacher.speak('Error parsing chemistry input: ' + err.message);
+  }
+});
+clearChemBtn.addEventListener('click', ()=>{ chemInput.value=''; chemResult.innerText=''; chemHint.innerText=''; });
+
+/* Quantum UI */
+drawQuantumVisual(qstate);
+document.querySelectorAll('.gateBtn').forEach(btn=>{
+  btn.addEventListener('click', ()=> {
+    const g = btn.dataset.gate;
+    if(!QGates[g]) return;
+    qstate = applyGate(QGates[g], qstate);
+    const hint = `Applied ${g} gate.`;
+    quantResult.innerText = AITeacher.guideQuantumText(qstate);
+    quantHint.innerText = hint;
+    drawQuantumVisual(qstate);
+    if(autoSpeakQuantum.checked) AITeacher.speak(hint + ' ' + AITeacher.guideQuantumText(qstate));
+  });
+});
+measureBtn.addEventListener('click', ()=> {
+  const m = measure(qstate);
+  const msg = `Measured: |${m}>.`;
+  quantResult.innerText = msg;
+  quantHint.innerText = 'State collapsed due to measurement.';
+  qstate = (m===0)? qubitZero() : qubitOne();
+  drawQuantumVisual(qstate);
+  if(autoSpeakQuantum.checked) AITeacher.speak(msg);
+});
+resetQBtn.addEventListener('click', ()=> {
+  qstate = qubitZero();
+  drawQuantumVisual(qstate);
+  quantResult.innerText = 'Reset to |0>';
+  quantHint.innerText = '';
+  if(autoSpeakQuantum.checked) AITeacher.speak('Quantum state reset to zero.');
+});
+histBtn.addEventListener('click', ()=> {
+  const counts = {0:0,1:0};
+  const trials = 100;
+  for(let i=0;i<trials;i++){
+    const res = measure(qstate);
+    counts[res]++;
+  }
+  const msg = `After ${trials} measurements: |0> ${counts[0]} times, |1> ${counts[1]} times.`;
+  quantResult.innerText = msg;
+  quantHint.innerText = 'This shows measurement statistics.';
+  if(autoSpeakQuantum.checked) AITeacher.speak(msg);
+});
+collapseBtn.addEventListener('click', ()=> {
+  qstate = qubitZero();
+  drawQuantumVisual(qstate);
+  quantResult.innerText = 'Collapsed to |0>';
+  if(autoSpeakQuantum.checked) AITeacher.speak('State collapsed to zero.');
+});
+
+/* ====================
+   Rotating Earth + Aura (Three.js)
+   ==================== */
+const canvas = document.getElementById('earthCanvas');
+const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+renderer.setPixelRatio(window.devicePixelRatio); renderer.setSize(window.innerWidth, window.innerHeight);
+const scene = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 1000);
+cam.position.z = 3;
+
+const texLoader = new THREE.TextureLoader();
+const earthTexture = texLoader.load('https://raw.githubusercontent.com/roda-ai/media/main/earth_texture.jpg', ()=> renderer.render(scene,cam));
+const earthGeo = new THREE.SphereGeometry(1,64,64);
+const earthMat = new THREE.MeshPhongMaterial({ map: earthTexture, shininess: 5 });
+const earthMesh = new THREE.Mesh(earthGeo, earthMat);
+scene.add(earthMesh);
+
+const amb = new THREE.AmbientLight(0xffffff, 0.3); scene.add(amb);
+const point = new THREE.DirectionalLight(0xffffff, 1);
+point.position.set(5,3,5); scene.add(point);
+
+// aura particles as sprites
+const auraGroup = new THREE.Group(); scene.add(auraGroup);
+const spriteMat = new THREE.SpriteMaterial({ color:0x61a0ff, opacity:0.8 });
+for(let i=0;i<18;i++){
+  const s = new THREE.Sprite(spriteMat.clone());
+  const lat = (Math.random()-0.5)*Math.PI; const lon = Math.random()*Math.PI*2;
+  const r = 1.05;
+  s.position.set(r*Math.cos(lat)*Math.cos(lon), r*Math.sin(lat), r*Math.cos(lat)*Math.sin(lon));
+  s.scale.set(0.06,0.06,0.06); auraGroup.add(s);
+}
+
+// make aura react to events by color/scale pulses
+function pulseAura(weight=1.0){
+  auraGroup.children.forEach((s,idx)=>{
+    const k = 1 + 0.6*Math.sin(Date.now()/200 + idx*0.7) + 0.6*weight*Math.random();
+    s.scale.set(0.04*k,0.04*k,0.04*k);
+    const color = new THREE.Color().setHSL(0.55 - 0.25*weight*Math.random(), 0.8, 0.5 + 0.2*Math.random());
+    s.material.color = color;
+    s.material.opacity = 0.4 + 0.6*weight*Math.random();
+  });
+}
+
+function resizeRenderer(){ renderer.setSize(window.innerWidth, window.innerHeight); cam.aspect = window.innerWidth/window.innerHeight; cam.updateProjectionMatrix(); }
+window.addEventListener('resize', resizeRenderer);
+
+function animate(){
+  requestAnimationFrame(animate);
+  earthMesh.rotation.y += 0.0012;
+  // gentle aura breathing
+  auraGroup.children.forEach((s,i)=> s.material.opacity = 0.25 + 0.25*Math.sin(Date.now()/900 + i));
+  renderer.render(scene, cam);
+}
+animate();
+
+/* Make globe respond to actions: whenever compute/simulate/measure occurs, pulse auras with different weight */
+function reactToEvent(source){
+  let weight = 0.6;
+  if(source === 'math') weight = 0.2;
+  if(source === 'chem') weight = 1.0;
+  if(source === 'quantum') weight = 1.4;
+  pulseAura(weight);
+}
+
+/* Hook reactions to UI actions */
+computeBtn.addEventListener('click', ()=> reactToEvent('math'));
+simulateBtn.addEventListener('click', ()=> reactToEvent('chem'));
+measureBtn.addEventListener('click', ()=> reactToEvent('quantum'));
+histBtn.addEventListener('click', ()=> reactToEvent('quantum'));
+
+/* Initial voice greeting (only if supported) */
+if ('speechSynthesis' in window){
+  setTimeout(()=> AITeacher.speak('Welcome to Aura Quantum Lab. I am your AI teacher. Try typing a formula, simulate chemistry, or play with the quantum gates.'), 800);
+}
+
+/* ensure quantum canvas resolution accounts for DPR */
+function fixQuantumCanvas(){
+  const dpr = devicePixelRatio || 1;
+  quantumCanvas.width = quantumCanvas.clientWidth * dpr;
+  quantumCanvas.height = quantumCanvas.clientHeight * dpr;
+  drawQuantumVisual(qstate);
+}
+window.addEventListener('resize', fixQuantumCanvas);
+fixQuantumCanvas();
+
 </script>
-
 </body>
 </html>
