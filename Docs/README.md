@@ -1,3 +1,6 @@
+
+![page_test](https://sciencex.com/my-news/1/)
+
 ```
 
 TEST
