@@ -1,3 +1,11 @@
+git clone git@github.com:GoogleChromeLabs/baseline-demos.git
+cd baseline-demos/tooling/webpack
+git checkout d3793f25
+nvm install
+nvm use
+npm install
+npm start
+
 sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
 dfx --version
 dfx new hello --type motoko --frontend react
