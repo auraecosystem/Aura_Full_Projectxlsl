@@ -63,7 +63,19 @@ jobs:
           --output executed_notebooks/executed-Notebook.ipynb
 EOF
 
+bun add -D eslint-config-prettier
+
 git add requirements.txt .github/workflows/notebook-ci.yml
 git commit -m "Add requirements.txt and notebook CI (execute notebook via nbconvert)"
 git push origin add/requirements-and-notebook-ci
 # then open a PR on GitHub from this branch to main
+
+npm i -D eslint-config-prettier
+
+npm install --save-dev --save-exact prettier
+node --eval "fs.writeFileSync('.prettierrc','{}\n')"
+node --eval "fs.writeFileSync('.prettierignore','# Ignore artifacts:\nbuild\ncoverage\n')"
+npm install --save-dev husky lint-staged
+npx husky init
+node --eval "fs.writeFileSync ('.husky/pre-commit','npx lint-staged\n')"
+npx prettier . --write
