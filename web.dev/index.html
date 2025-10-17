@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Docs — Immersive Intelligence</title>
+
+  <!-- Prism Syntax Highlighting -->
+  <link rel="stylesheet" href="//unpkg.com/prismjs/themes/prism-tomorrow.css" />
+
+  <style>
+    :root {
+      --aura-light: hsl(190, 100%, 65%);
+      --aura-dark: hsl(270, 100%, 70%);
+    }
+    body {
+      margin: 0;
+      background: var(--bg, #0d0d0d);
+      color: var(--fg, #fff);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    #app {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+
+    #aura-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      background: transparent;
+    }
+
+    .glow-text {
+      text-shadow: 0 0 18px var(--aura-light), 0 0 30px var(--aura-dark);
+      transition: all 0.3s ease-in-out;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="aura-overlay"></div>
+  <div id="app">Loading Aura Docs...</div>
+
+  <!-- Docsify & Plugins -->
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+
+  <!-- PrismJS Syntax Highlighting -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+
+  <!-- WebXR (for immersive mode readiness) -->
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+  <script src="/resources/testdriver.js"></script>
+  <script src="/resources/testdriver-vendor.js"></script>
+  <script src="../resources/webxr_util.js"></script>
+  <script src="../resources/webxr_test_constants.js"></script>
+  <script src="../resources/webxr_test_asserts.js"></script>
+
+  <script>
+    // === Adaptive Theme Detection ===
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.body.style.setProperty('--bg', prefersDark ? '#0d0d0d' : '#f8f8f8');
+    document.body.style.setProperty('--fg', prefersDark ? '#fff' : '#111');
+    if (!prefersDark) {
+      document.documentElement.style.setProperty('--aura-light', 'hsl(45, 100%, 60%)');
+      document.documentElement.style.setProperty('--aura-dark', 'hsl(210, 100%, 60%)');
+    }
+
+    // === Aura Overlay Animation ===
+    const canvas = document.getElementById('aura-overlay');
+    const ctx = canvas.getContext('2d');
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+
+    let particles = [];
+    for (let i = 0; i < 75; i++) {
+      particles.push({
+        x: Math.random() * innerWidth,
+        y: Math.random() * innerHeight,
+        r: Math.random() * 2.5 + 1,
+        dx: (Math.random() - 0.5) * 1.5,
+        dy: (Math.random() - 0.5) * 1.5,
+        color: `hsl(${Math.random() * 360}, 100%, 70%)`
+      });
+    }
+
+    function drawAura() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > innerWidth) p.dx *= -1;
+        if (p.y < 0 || p.y > innerHeight) p.dy *= -1;
+      }
+      requestAnimationFrame(drawAura);
+    }
+    drawAura();
+
+    // === Reactive Glow System ===
+    const keywords = ["AI", "Quantum", "Neural", "Data", "Blockchain", "Discovery"];
+    const glowText = document.getElementById('app');
+    let hue = 200;
+
+    function glowPulse() {
+      hue = (hue + 1) % 360;
+      glowText.style.textShadow = `0 0 20px hsl(${hue}, 100%, 70%)`;
+      requestAnimationFrame(glowPulse);
+    }
+    glowPulse();
+
+    // === Docsify Config ===
+    window.$docsify = {
+      name: 'Aura Docs',
+      repo: '',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      search: 'auto',
+      markdown: {
+        renderer: {
+          code: function (code, lang) {
+            const glow = keywords.some(k => code.includes(k)) ? 'glow-text' : '';
+            return `<pre class="language-${lang} ${glow}"><code>${Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup, lang)}</code></pre>`;
+          }
+        }
+      }
+    };
+
+    // === Resize Handling ===
+    window.addEventListener('resize', () => {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+    });
+  </script>
+</body>
+</html>
