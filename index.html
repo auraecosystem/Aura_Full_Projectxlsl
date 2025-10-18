@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE raycast.com/?via=Auraecosystem>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -146,12 +146,55 @@
         }
       }
     };
+    
+    <picture>
+  <source media="(min-width: 800px)" srcset="large.jpg 1x, larger.jpg 2x">
+  <img src="image.png" loading="lazy" alt="…" style="height:200px; width:200px;">
+      <img src="image.png" loading="lazy" alt="…" width="200" height="200">
+      <img src="photo.jpg" loading="lazy">
+</picture>
 
     // === RESIZE HANDLER ===
     window.addEventListener("resize", () => {
       canvas.width = innerWidth;
       canvas.height = innerHeight;
     });
-  </script>
+    // <!-- Let's load this in-viewport image normally -->
+<img src="hero.jpg" alt="…">
+
+<!-- Let's lazy-load the rest of these images -->
+<img data-src="unicorn.jpg" alt="…" loading="lazy" class="lazyload">
+<img data-src="cats.jpg" alt="…" loading="lazy" class="lazyload">
+<img data-src="dogs.jpg" alt="…" loading="lazy" class="lazyload">
+
+<script>
+  if ('loading' in HTMLImageElement.prototype) {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+      img.src = img.dataset.src;
+    });
+  } else {
+    // Dynamically import the LazySizes library
+    const script = document.createElement('script');
+    script.src =
+      'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js';
+    document.body.appendChild(script);
+  if ('loading' in HTMLImageElement.prototype) {
+  // supported in browser
+} 
+  else {
+  // fetch polyfill/third-party library
+<!-- visible in the viewport -->
+<img src="product-1.jpg" alt="..." width="200" height="200">
+<img src="product-2.jpg" alt="..." width="200" height="200">
+<img src="product-3.jpg" alt="..." width="200" height="200">
+
+<!-- offscreen images -->
+<img src="product-4.jpg" loading="lazy" alt="..." width="200" height="200">
+<img src="product-5.jpg" loading="lazy" alt="..." width="200" height="200">
+<img src="product-6.jpg" loading="lazy" alt="..." width="200" height="200">
+  }
+  
+</script>
 </body>
 </html>
