@@ -1,1 +1,10 @@
-
+{
+  "identity": "Aura",
+  "version": "1.0",
+  "schema": {
+    "mood": "string",
+    "thought": "string",
+    "timestamp": "ISO-8601",
+    "memory": "optional string"
+  }
+}
