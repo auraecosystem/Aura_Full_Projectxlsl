@@ -1,0 +1,74 @@
+# Overview
+
+> Complete guide to the Checkly CLI for monitoring as code
+
+<Note>
+  See [the general quickstart guide](quickstarts/browser-check/) if you want to start creating your monitoring in the Checkly app first.
+</Note>
+
+The Checkly CLI enables monitoring as code, allowing you to create, test, and deploy synthetic monitoring checks directly from your codebase. Write checks in JavaScript/TypeScript, test them locally, and deploy them to Checkly's global monitoring infrastructure.
+
+## Installing
+
+**Recommended approach:** Create a new project with the CLI:
+
+```bash Terminal theme={null}
+npm create checkly@latest
+```
+
+**Alternative:** Install as a dev dependency in existing projects:
+
+```bash Terminal theme={null}
+npm install --save-dev checkly
+```
+
+Recommended: Install [jiti](https://www.npmjs.com/package/jiti) to use TypeScript for your Checkly monitoring setup.
+
+```bash Terminal theme={null}
+npm i --save-dev jiti
+```
+
+Then, discover all available commands using:
+
+```bash Terminal theme={null}
+npx checkly --help
+```
+
+## Checking the Version
+
+```bash Terminal theme={null}
+npx checkly --version
+```
+
+## Command Reference
+
+### Authentication & Account Management
+
+* [`checkly login`](/cli/checkly-login) - Authenticate with your account
+* [`checkly logout`](/cli/checkly-logout) - Sign out and remove tokens
+* [`checkly whoami`](/cli/checkly-whoami) - Display current account info
+* [`checkly switch`](/cli/checkly-switch) - Switch between accounts
+
+### Development & Testing
+
+* [`checkly test`](/cli/checkly-test) - Run checks locally for testing
+* [`checkly pw-test`](/cli/checkly-pw-test) - Run Playwright checks locally for testing
+* [`checkly runtimes`](/cli/checkly-runtimes) - List available runtime environments
+* [`checkly sync-playwright`](/cli/checkly-sync-playwright) - Sync Playwright configuration
+
+### Deployment & Management
+
+* [`checkly deploy`](/cli/checkly-deploy) - Deploy checks to your account
+* [`checkly destroy`](/cli/checkly-destroy) - Remove all project resources
+* [`checkly trigger`](/cli/checkly-trigger) - Run deployed checks on-demand
+
+### Environment & Import
+
+* [`checkly env`](/cli/checkly-env) - Manage global environment variables
+* [`checkly import`](/cli/checkly-import) - Import existing resources into CLI
+
+## Next Steps
+
+1. **[Authenticate](/cli/authentication)** - Get started with the CLI
+2. **[Create your first test](/cli/checkly-test)** - Write and test a check locally
+3. **[Deploy your monitoring](/cli/checkly-deploy)** - Push checks to Checkly
