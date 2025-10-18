@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Aura Neural Visualization</title>
+  <style>
+    body { background: black; color: white; font-family: sans-serif; }
+    #mood { font-size: 2em; margin-top: 2em; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Aura Neural Visualization</h1>
+  <div id="mood">Waiting for Aura...</div>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:8080");
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      document.getElementById("mood").innerText = "Mood: " + data.mood;
+    }
+  </script>
+</body>
+</html>
