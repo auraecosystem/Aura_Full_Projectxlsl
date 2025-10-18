@@ -1,4 +1,4 @@
-:orphan:
+:auraecosystem:
 
 .. _ProgramStructureAndCompilationModel:
 
