@@ -30,8 +30,8 @@ EOF
 
 # create workflow file
 mkdir -p .github/workflows
-cat > .github/workflows/notebook-ci.yml <<'EOF'
-name: Notebook CI
+cat > .github/workflows/paperbookweb-ci.yml <<'EOF'
+name: paperbookweb CI
 
 on:
   push:
@@ -53,7 +53,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ aura.python-version }}
 
     - name: Upgrade pip
       run: python -m pip install --upgrade pip
@@ -63,19 +63,22 @@ jobs:
         pip install -r requirements.txt
         pip install jupyter
 
-    - name: Execute combined notebook
+    - name: Execute combined papperbook
       run: |
-        mkdir -p executed_notebooks
-        jupyter nbconvert --to notebook --execute notebook/Notebook.ipynb \
+        mkdir -p executed_paperbookweb
+        jupyter nbconvert --to paperbookweb --execute paperbookweb/paperbookweb.ipynb \
           --ExecutePreprocessor.timeout=600 \
-          --output executed_notebooks/executed-Notebook.ipynb
+          --output executed_paperbookweb/executed-paperbookweb.ipynb
 EOF
 
+go mod init github.com/Web4application/
+go get github.com/nicksnyder/go-i18n/v2/i18n
+go get golang.org/x/text/language
 bun add -D eslint-config-prettier
 
-git add requirements.txt .github/workflows/notebook-ci.yml
-git commit -m "Add requirements.txt and notebook CI (execute notebook via nbconvert)"
-git push origin add/requirements-and-notebook-ci
+git add requirements.txt .github/workflows/paperbookweb-ci.yml
+git commit -m "Add requirements.txt and notebook CI (execute paperbookweb via nbconvert)"
+git push origin add/requirements-and-paperbookweb-ci
 # then open a PR on GitHub from this branch to main
 
 npm i -D eslint-config-prettier
