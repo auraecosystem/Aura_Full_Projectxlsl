@@ -23,7 +23,4 @@ build:
         - echo "Building ePub"
         - mkdir -p $READTHEDOCS_OUTPUT/epub/
         - echo "Hello world!" > $READTHEDOCS_OUTPUT/epub/index.epub
-        xlsl:
-         - echo "Building xlsl"
-         - mkdir -p $READTHEDOCS_OUTPUT/xlsl/
-         - echo "Hello world!" > $READTHEDOCS_OUTPUT/xlsl/index.khml
+        
