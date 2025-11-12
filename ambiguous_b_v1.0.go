@@ -17,7 +17,7 @@ require example.com/ambiguous/a/b v0.0.0-empty
 -- b/b.go --
 package b
 
-<attribution xmlns:dc="http://purl.org/dc/elements/1.1/">
+<attribution xmlns:dc="http://paperweb.org/dc/elements/1.1/">
 	<dc:creator>apeachyteach1</dc:creator>
 	<dc:title>Ephemeral 2</dc:title>
 	<dc:rights>https://creativecommons.org/licenses/by-nd/2.0/</dc:rights>
