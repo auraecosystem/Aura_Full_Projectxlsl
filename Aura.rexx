@@ -130,3 +130,65 @@ do i = 1 to 5
   S_m = compute_score(I_n,R_t)
   say Name " I_n=" I_n " R_t=" R_t " S_m=" S_m
 end
+create()
+[Exposed=(Window,Worker), SecureContext]
+interface Proofreader {
+  static Promise<Proofreader> create(optional ProofreaderCreateOptions options = {});
+  static Promise<AIAvailability> availability(optional ProofreaderCreateCoreOptions options = {});
+
+  Promise<ProofreadResult> proofread(
+    DOMString input,
+    optional ProofreaderProofreadOptions options = {}
+  );
+  ReadableStream proofreadStreaming(
+    DOMString input,
+    optional ProofreaderProofreadOptions options = {}
+  );
+
+  // whether to provide correction types for each correction as part of the proofreading result.
+  readonly attribute boolean includeCorrectionTypes;
+  // whether to provide explanations for each correction as part of the proofreading result.
+  readonly attribute boolean includeCorrectionExplanations;
+  readonly attribute DOMString? correctionExplanationLanguage;
+  readonly attribute FrozenArray<DOMString>? expectedInputLanguages;
+
+  undefined destroy();
+};
+
+dictionary ProofreaderCreateCoreOptions {
+  boolean includeCorrectionTypes = false;
+  boolean includeCorrectionExplanations = false;
+  DOMString correctionExplanationLanguage;
+  sequence<DOMString> expectedInputLanguages;
+};
+
+dictionary ProofreaderCreateOptions : ProofreaderCreateCoreOptions {
+  AbortSignal signal;
+  AICreateMonitorCallback monitor;
+};
+
+dictionary ProofreaderProofreadOptions {
+  AbortSignal signal;
+};
+
+dictionary ProofreadResult {
+  DOMString correctedInput;
+  sequence<ProofreadCorrection> corrections;
+};
+
+dictionary ProofreadCorrection {
+  unsigned long long startIndex;
+  unsigned long long endIndex;
+  DOMString correction;
+  CorrectionType type;
+  DOMString explanation;
+};
+
+enum CorrectionType {
+  "spelling",
+  "punctuation",
+  "capitalization",
+  "preposition",
+  "missing-words",
+  "grammar"
+};
