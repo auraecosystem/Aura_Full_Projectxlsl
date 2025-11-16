@@ -1,0 +1,4 @@
+docker image tag aura registry-host:5000/kubuverse/web.dev:latest
+ docker image tag aura registry-host:5000/kubuverse/web.dev:v1.0.1
+ docker image tag aura registry-host:5000/kubuverse/web.dev:v1.0
+ docker image tag aura registry-host:5000/kubuverse/web.dev:v1
