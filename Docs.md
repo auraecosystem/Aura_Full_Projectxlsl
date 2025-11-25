@@ -4,10 +4,7 @@ pages: page.extension
 layouts: sites
 description: Rule/Logic
 ---
-<d>          
-
-    
-    scripts/R	example.R	README.R.md	Rule/Logic Scripts – reusable rules or AI logic
+<p>scripts/R example.R	README.R.md	Rule/Logic Scripts – reusable rules or AI logic
     scripts/fn	example.fn	README.fn.md	Function Modules – reusable callable functions
     scripts/macro	example.macro	README.macro.md	Macro Scripts – automate multi-step or repetitive tasks
     scripts/ser	example.ser	README.ser.md	Serialized Modules – store objects, workflow states, model checkpoints
@@ -31,7 +28,7 @@ description: Rule/Logic
     integration/api	example.api	README.api.md	API Connectors – connect external APIs, OAuth
     integration/scrap	example.scrap	README.scrap.md	Web Scraping – extract data from websites
     integration/shell	example.shell	README.shell.md	System Scripts – run shell/system commands
-</d>
+</p>
   <h1
     < ---
         tittle: 
@@ -49,3 +46,5 @@ layouts: sites
     ---
 description: Rule Logic
 --->
+
+<document></document>
