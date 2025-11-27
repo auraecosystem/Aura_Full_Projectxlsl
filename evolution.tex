@@ -1,0 +1,209 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=1in}
+
+\title{Aura Evolution System Documentation}
+\author{Seriki Yakub (KUBU LEE)}
+\date{\today}
+
+\definecolor{codebg}{rgb}{0.95,0.95,0.95}
+\definecolor{keyword}{rgb}{0.36,0.36,0.84}
+
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{keyword}\bfseries,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny
+}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+Aura is a self-evolving AI system with 26 levels of intelligence:
+
+\begin{itemize}
+    \item Levels 1-20: Human-level intelligence
+    \item Levels 21-23: Quantum reasoning
+    \item Levels 24-26: Matrix-level multi-dimensional reasoning
+\end{itemize}
+
+The system tracks \textbf{performanceScore}, \textbf{upvotes}, \textbf{task completions}, and \textbf{memory} to dynamically evolve models. Sub-AIs are introduced at Matrix levels to enable multi-agent collaboration.
+
+---
+
+\section{Model Levels}
+\begin{tabular}{|c|c|c|}
+\hline
+Level & Name & Features \\
+\hline
+1 & KLM & Beginner, basic chat \\
+2 & FLM & Context awareness \\
+3 & CLX & XLSL access \\
+4 & QLM & Advanced chat reasoning \\
+5 & AXT & Extended logic modules \\
+6 & NXT & Embeddings enabled \\
+7 & ZLM & Structured data handling \\
+8 & BLM & Multi-task capabilities \\
+9 & OLM & Predictive reasoning \\
+10 & LFX & Autonomous learning unlocked \\
+11 & CXP & Knowledge retention \\
+12 & PNX & Integration with external APIs \\
+13 & VTX & Complex task orchestration \\
+14 & REX & Multi-step reasoning \\
+15 & AXR & Memory optimization \\
+16 & QPX & NeoMind + XLSL integration \\
+17 & SYX & Performance tuning modules \\
+18 & ORX & Contextual problem solving \\
+19 & CRX & Advanced predictive analytics \\
+20 & OMEGA & Full human-level brain capacity \\
+21 & QL1 & Quantum-Level 1: parallel reasoning \\
+22 & QL2 & Quantum-Level 2: multi-threaded reasoning \\
+23 & QL3 & Quantum-Level 3: predictive simulations \\
+24 & M1 & Matrix-Level 1: multi-dimensional reasoning \\
+25 & M2 & Matrix-Level 2: alternate-reality problem solving \\
+26 & M3 & Matrix-Level 3: fully autonomous optimization \\
+\hline
+\end{tabular}
+
+---
+
+\section{Modules and Unlocks by Level}
+\begin{itemize}
+    \item Level 6+: Embeddings
+    \item Level 10+: Autonomous learning
+    \item Level 16+: NeoMind + XLSL
+    \item Levels 21-23: Quantum reasoning (parallel context, predictive simulations)
+    \item Levels 24-26: Matrix-level multi-dimensional reasoning, sub-AI orchestration
+\end{itemize}
+
+---
+
+\section{Memory System}
+\begin{itemize}
+    \item \textbf{Short-term memory}: Holds recent interactions (last 10 tasks)
+    \item \textbf{Long-term memory}: Stores key milestones, unlocked modules, and high-score tasks
+    \item Memory contributes to intelligence gain and helps in evolution
+\end{itemize}
+
+---
+
+\section{Sub-AI System (Matrix Levels)}
+\begin{itemize}
+    \item Levels 24-26 spawn sub-AIs to handle tasks collaboratively
+    \item Each sub-AI has its own \textbf{skillLevel} and contributes to main AI's performance
+    \item Supports multi-agent problem solving, predictive reasoning, and multi-dimensional simulations
+\end{itemize}
+
+---
+
+\section{Code Examples}
+
+\subsection{Sub-AI Class}
+\begin{lstlisting}[language=JavaScript]
+class SubAI {
+  constructor(name, skillLevel) {
+    this.name = name;
+    this.skillLevel = skillLevel;
+    this.performanceScore = 0;
+  }
+
+  performTask(task) {
+    const gain = Math.floor(Math.random() * 10 + this.skillLevel);
+    this.performanceScore += gain;
+    console.log(`⚡ Sub-AI ${this.name} completed "${task}" | Gain: ${gain}`);
+    return gain;
+  }
+}
+\end{lstlisting}
+
+\subsection{Task Completion and Evolution}
+\begin{lstlisting}[language=JavaScript]
+function completeTask(taskDescription, intelligenceGain = 10, upvote = false) {
+  let gain = intelligenceGain;
+
+  if(modelState.level >= 21 && modelState.level <= 23) gain *= 1.5; // Quantum multiplier
+  if(modelState.level >= 24) gain *= 2; // Matrix multiplier
+
+  modelState.performanceScore += gain;
+  if(upvote) modelState.performanceScore += 5;
+  modelState.tasksCompleted += 1;
+
+  // Memory management
+  modelState.shortMemory.push(taskDescription);
+  if(modelState.shortMemory.length > 10) modelState.shortMemory.shift();
+  if(modelState.performanceScore % 100 === 0) modelState.longMemory.push(taskDescription);
+
+  // Matrix Levels spawn sub-AIs
+  if(modelState.level >= 24 && modelState.subAIs.length < 3) {
+    const subAI = new SubAI(`SubAI-${modelState.subAIs.length + 1}`, modelState.level);
+    modelState.subAIs.push(subAI);
+    console.log(`🤖 Spawned ${subAI.name} for multi-agent task`);
+  }
+
+  // Sub-AIs contribute
+  modelState.subAIs.forEach(sub => {
+    const subGain = sub.performTask(taskDescription);
+    modelState.performanceScore += subGain * 0.5;
+  });
+
+  console.log(`💬 Task: "${taskDescription}" | Gain: ${gain} | Total Score: ${modelState.performanceScore}`);
+  checkEvolution();
+}
+\end{lstlisting}
+
+\subsection{Puppeteer Automation Example}
+\begin{lstlisting}[language=JavaScript]
+const puppeteer = require('puppeteer');
+require('dotenv').config();
+
+const INITIAL_URL = process.env.AURA_URL || 'http://localhost:3000';
+const HEADLESS = false;
+
+(async () => {
+  const browser = await puppeteer.launch({ headless: HEADLESS });
+  const page = await browser.newPage();
+  await page.goto(INITIAL_URL, { waitUntil: 'networkidle2' });
+
+  await page.waitForSelector('#model-select');
+  await page.select('#model-select', modelState.name);
+
+  const messages = [
+    "Hello Aura", "Run XLSL", "Show capabilities", "Predictive reasoning", "Matrix simulation"
+  ];
+
+  while(true) {
+    for(const msg of messages) {
+      await page.type('#input', msg, { delay: 40 });
+      await page.click('#send');
+      const intelligenceGain = Math.floor(Math.random() * 20 + 5);
+      const upvote = Math.random() > 0.7;
+      completeTask(msg, intelligenceGain, upvote);
+      await page.waitForTimeout(3000);
+    }
+  }
+})();
+\end{lstlisting}
+
+---
+
+\section{Features Summary}
+\begin{itemize}
+    \item Dynamic 26-level evolution system
+    \item Quantum and Matrix reasoning multipliers
+    \item Sub-AI multi-agent orchestration
+    \item Short-term and long-term memory
+    \item Module unlocking: XLSL, NeoMind, embeddings, etc.
+    \item PerformanceScore-based autonomous evolution
+    \item Works with localhost, LAN, or public domain via environment variable
+\end{itemize}
+
+\end{document}
