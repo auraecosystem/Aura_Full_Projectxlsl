@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 require('dotenv').config(); // load .env variables
-
 // --- CONFIG ---
 // Use environment variable if available, else fallback to localhost
 const INITIAL_URL = process.env.AURA_URL || 'http://localhost:3000';
