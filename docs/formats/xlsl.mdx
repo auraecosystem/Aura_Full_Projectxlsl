@@ -1,0 +1,24 @@
+# XLSL Format
+
+XLSL (eXtended Logic & Science Language) is Aura’s core computation format.  
+It blends scripting, mathematics, and structured pipelines into a single reproducible file.
+
+## Why XLSL?
+- Human-readable  
+- Strictly deterministic  
+- Reproducible computation  
+- Perfect for AI, STEM, simulation, and quantum workflows  
+
+---
+
+## Basic Structure
+
+```xlsl
+task ComputeEnergy {
+    input mass: float
+    constant c = 299792458
+
+    compute {
+        return mass * c * c
+    }
+}
