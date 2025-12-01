@@ -1,0 +1,17 @@
+paperweb:
+  pages:
+    dashboard:
+      source: "dashboard!A1:E32"
+      layout: "auto-dashboard"
+      bindings:
+        mrr: "B1"
+        active_users: "B2"
+        churn_rate: "B3"
+
+runtime:
+  mode: "reactive"
+  evaluation: "incremental"
+  connectors:
+    - type: "http"
+      name: "analytics"
+      baseUrl: "https://api.localhosts.com"
