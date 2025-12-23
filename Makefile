@@ -1,0 +1,278 @@
+.DEFAULT_GOAL := help
+-include scripts/make/audio.Makefile
+include .env.version
+export
+
+help::
+	@echo
+	@echo "---------------------------------------------------------------------------------------"
+	@echo "AURA production targets:"
+	@echo
+	@echo "    aura-user.add                - create user 'aura'."
+	@echo "    aura-user.rm                 - delete user 'aura'"
+	@echo
+	@echo "    aura-web.init                - create initial directories, config file"
+	@echo "    aura-web.configure           - configure 'aura-web' based on given config file"
+	@echo "    aura-web.fixtures-create     - create default data based on sample fixtures"
+	@echo "    aura-web.fixtures-import     - import default data based on fixtures"
+	@echo "    aura-web.update              - pull latest images for 'aura-web'"
+	@echo "    aura-web.up                  - start docker compose 'aura-web'"
+	@echo "    aura-web.down                - stop docker compose 'aura-web'"
+	@echo
+	@echo "    aura-playout.init            - create initial directories and config file"
+	@echo "    aura-playout.update          - pull latest images for 'aura-playout'"
+	@echo "    aura-playout.up              - start docker compose 'aura-playout'"
+	@echo "    aura-playout.down            - stop docker compose 'aura-playout'"
+	@echo "    aura-playout.pw.install	- install pipewire as a global daemon"
+	@echo
+	@echo "    aura-volume.backup           - backup volumes; pass 'BACKUP_PATH'"
+	@echo "    aura-volume.restore          - restore volume; pass 'BACKUP_FILE', 'VOLUME_NAME'"
+	@echo
+	@echo "    version                      - display current version"
+	@echo
+	@echo "---------------------------------------------------------------------------------------"
+	@echo "AURA development targets:"
+	@echo
+	@echo "    dev.init                     - init development environment"
+	@echo "    dev.spell                    - check spelling of text"
+	@echo "    dev.clone-systemd            - update systemd unit files for engine-core"
+	@echo "    dev.clone-config             - update sample configuration from service repos"
+	@echo "    dev.clone-fixtures           - update sample fixtures for aura-web (steering)"
+	@echo "    dev.clone-changelog          - update service changelogs"
+	@echo "    dev.merge-changelog          - create a merged changelog"
+	@echo "    dev.prepare-release          - prepare the release (update config, merge changelog)"
+	@echo "    dev.release                  - tags und pushes the release"
+	@echo
+	@echo "---------------------------------------------------------------------------------------"
+	@echo "AURA audio targets:"
+	@echo
+	$(call audio_help)
+
+# Settings
+
+AURA_GID ?= 872
+AURA_UID ?= 872
+AURA_HOME ?= $(shell pwd)
+
+# Targets
+
+aura-user.add: create-aura-user add-current-user-to-aura-group
+
+create-aura-user:
+	@if [ "$$(id -u aura 2>/dev/null)" = ${AURA_UID} ] && [ "$$(id -g aura 2>/dev/null)" = ${AURA_GID} ]; then \
+		echo "The user aura (${AURA_UID}:${AURA_GID}) already exists."; \
+	else \
+		sudo groupadd --gid ${AURA_GID} aura; \
+		sudo useradd --system --gid ${AURA_GID} --no-user-group --uid ${AURA_UID} --home-dir ${AURA_HOME} --no-create-home aura; \
+		sudo passwd aura; \
+		echo "Successfully created user 'aura' with AURA_HOME in '${AURA_HOME}'"; \
+	fi
+
+# Target to add current user to the aura group
+add-current-user-to-aura-group:
+	sudo usermod -aG aura $(USER)
+
+aura-user.rm:
+	sudo deluser $(USER) aura
+	sudo userdel aura
+
+setup-aura-dirs:
+	sudo chown -R $(USER):$(USER) ${AURA_HOME}
+	sudo chown $(USER):aura ${AURA_HOME}
+	sudo chmod  g+w \
+		${AURA_HOME}
+	sudo mkdir -p \
+		${AURA_HOME}/audio/upload \
+		${AURA_HOME}/audio/m3u \
+		${AURA_HOME}/logs/
+	sudo chown -R $(USER):${AURA_GID} \
+		${AURA_HOME}/audio/upload \
+		${AURA_HOME}/audio/m3u \
+		${AURA_HOME}/logs/
+	sudo chmod -R g+rw \
+		${AURA_HOME}/audio/upload \
+		${AURA_HOME}/audio/m3u \
+		${AURA_HOME}/logs/
+	@echo
+	@echo "Now '${AURA_HOME}' feels like home."
+
+setup-aura-web-dirs:setup-aura-dirs
+setup-aura-web-dirs:
+	sudo mkdir -p \
+		${AURA_HOME}/logs/tank \
+		${AURA_HOME}/logs/nginx \
+		${AURA_HOME}/logs/letsencrypt
+	sudo chown -R $(USER):${AURA_GID} \
+		${AURA_HOME}/logs/tank
+	sudo chmod -R g+rw \
+		${AURA_HOME}/logs/tank
+	sudo chown -R $(USER):${AURA_UID} \
+		${AURA_HOME}/logs/letsencrypt \
+		${AURA_HOME}/logs/nginx
+
+setup-aura-playout-dirs:setup-aura-dirs
+setup-aura-playout-dirs:
+	sudo mkdir -p \
+		${AURA_HOME}/audio/pool/fallback \
+		${AURA_HOME}/audio/record/block \
+		${AURA_HOME}/audio/record/show
+	sudo chown -R $(USER):${AURA_GID} \
+		${AURA_HOME}/audio/pool/fallback \
+		${AURA_HOME}/audio/record/block \
+		${AURA_HOME}/audio/record/show
+	sudo chmod -R g+rw \
+		${AURA_HOME}/audio/pool/fallback \
+		${AURA_HOME}/audio/record/block \
+		${AURA_HOME}/audio/record/show
+
+aura-web.init::setup-aura-web-dirs
+aura-web.init::
+	cp -n config/aura-web/sample.env config/aura-web/.env
+
+aura-web.configure::
+	cd config/aura-web && docker compose run --rm --entrypoint poetry steering run ./manage.py initialize
+
+aura-web.update::
+	cd config/aura-web && docker compose pull
+
+aura-web.fixtures-create::
+	cp config/aura-web/fixtures/sample/* config/aura-web/fixtures
+
+aura-web.fixtures-import::
+	cd config/aura-web && docker compose run --rm --entrypoint poetry steering run ./manage.py loadfixtures custom
+
+aura-web.up::
+	cd config/aura-web && docker compose up -d
+
+aura-web.down::
+	cd config/aura-web && docker compose down
+
+aura-playout.init::setup-aura-playout-dirs
+aura-playout.init::
+	cp -n config/aura-playout/sample.env config/aura-playout/.env
+	cp -n config/services/sample-config/engine-core.yaml config/services/engine-core.yaml
+
+aura-playout.pw.install::
+	@for g in audio rtkit; do \
+		if id -nG aura | grep -qw "$$g"; then \
+			echo "User aura is already in group $$g"; \
+		else \
+			sudo adduser aura $$g; \
+		fi \
+	done
+	sudo apt install dbus-user-session
+	sudo loginctl enable-linger aura
+	sudo mkdir -p /etc/pipewire
+	sudo cp -a /usr/share/pipewire/pipewire.conf /etc/pipewire/
+	sudo cp config/services/systemd/pipewire.socket /etc/systemd/system/pipewire.socket
+	sudo cp config/services/systemd/pipewire.service /etc/systemd/system/pipewire.service
+	sudo cp config/services/systemd/wireplumber.service /etc/systemd/system/wireplumber.service
+	sudo systemctl --user --global mask pipewire.socket pipewire.service wireplumber.service
+	sudo systemctl daemon-reload
+	sudo systemctl enable pipewire.socket pipewire.service wireplumber.service
+	@echo "Reboot now for the changes to take effect."
+
+aura-playout.update::
+	cd config/aura-playout && docker compose pull
+
+aura-playout.up::
+	cd config/aura-playout && docker compose up -d
+
+aura-playout.down::
+	cd config/aura-playout && docker compose down
+
+aura-volume.backup::
+	@echo "BACKUP_PATH is ${BACKUP_PATH}"
+	scripts/backup.sh ${BACKUP_PATH}
+
+aura-volume.restore::
+	@echo "BACKUP_FILE is ${BACKUP_FILE}"
+	@echo "VOLUME_NAME is ${VOLUME_NAME}"
+	scripts/restore.sh ${BACKUP_FILE} ${VOLUME_NAME}
+
+dev.init::
+	poetry install --no-interaction
+	poetry run pre-commit autoupdate
+	poetry run pre-commit install
+
+dev.spell::
+	poetry run codespell $(wildcard *.md) docs
+
+dev.clone-systemd:: REPO_BASE := https://gitlab.servus.at/aura/
+dev.clone-systemd::
+	curl ${REPO_BASE}engine-core/-/raw/${AURA_ENGINE_CORE_VERSION}/config/systemd/pipewire.service?inline=false > ./config/services/systemd/pipewire.service
+	curl ${REPO_BASE}engine-core/-/raw/${AURA_ENGINE_CORE_VERSION}/config/systemd/pipewire.socket?inline=false > ./config/services/systemd/pipewire.socket
+	curl ${REPO_BASE}engine-core/-/raw/${AURA_ENGINE_CORE_VERSION}/config/systemd/wireplumber.service?inline=false > ./config/services/systemd/wireplumber.service
+
+dev.clone-config:: REPO_BASE := https://gitlab.servus.at/aura/
+dev.clone-config::
+	curl ${REPO_BASE}steering/-/raw/${AURA_STEERING_VERSION}/steering/settings.py?inline=false > ./config/services/sample-config/steering_settings.py
+	curl ${REPO_BASE}tank/-/raw/${AURA_TANK_VERSION}/contrib/for-docker.yaml?inline=false > ./config/services/sample-config/tank.yaml
+	curl ${REPO_BASE}tank-cut-glue/-/raw/${AURA_TANK_CUTGLUE_VERSION}/config/for-docker.yaml?inline=false > ./config/services/sample-config/tank-cut-glue.yaml
+	curl ${REPO_BASE}dashboard/-/raw/${AURA_DASHBOARD_VERSION}/docker.env.production?inline=false > ./config/services/sample-config/dashboard.env
+	curl ${REPO_BASE}engine/-/raw/${AURA_ENGINE_VERSION}/config/sample.engine.docker.yaml?inline=false > ./config/services/sample-config/engine.yaml
+	curl ${REPO_BASE}engine-api/-/raw/${AURA_ENGINE_API_VERSION}/config/sample.engine-api.docker.yaml?inline=false > ./config/services/sample-config/engine-api.yaml
+	curl ${REPO_BASE}engine-core/-/raw/${AURA_ENGINE_CORE_VERSION}/config/sample-engine-core-docker.yaml?inline=false > ./config/services/sample-config/engine-core.yaml
+	curl ${REPO_BASE}engine-recorder/-/raw/${AURA_ENGINE_RECORDER_VERSION}/config/for-docker.yaml?inline=false > ./config/services/sample-config/engine-recorder.yaml
+
+dev.clone-fixtures:: REPO_BASE := https://gitlab.servus.at/aura/
+dev.clone-fixtures:: BRANCH_STEERING := $(subst unstable,main,$(AURA_STEERING_VERSION))
+dev.clone-fixtures::
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/program/rrule.json?inline=false > ./config/aura-web/fixtures/sample/rrule.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/category.json?inline=false > ./config/aura-web/fixtures/sample/category.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/fundingcategory.json?inline=false > ./config/aura-web/fixtures/sample/fundingcategory.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/language.json?inline=false > ./config/aura-web/fixtures/sample/language.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/license.json?inline=false > ./config/aura-web/fixtures/sample/license.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/linktype.json?inline=false > ./config/aura-web/fixtures/sample/linktype.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/musicfocus.json?inline=false > ./config/aura-web/fixtures/sample/musicfocus.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/topic.json?inline=false > ./config/aura-web/fixtures/sample/topic.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/type.json?inline=false > ./config/aura-web/fixtures/sample/type.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/sample/radiosettings.json?inline=false > ./config/aura-web/fixtures/sample/radiosettings.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/test/profile.json?inline=false > ./config/aura-web/fixtures/sample/profile.json
+	curl ${REPO_BASE}steering/-/raw/${BRANCH_STEERING}/fixtures/test/show.json?inline=false > ./config/aura-web/fixtures/sample/show.json
+
+dev.clone-changelog:: AURA_WORK_DIR := ./.tmp
+dev.clone-changelog:: REPO_BASE := https://gitlab.servus.at/aura/
+dev.clone-changelog::
+	mkdir -p ${AURA_WORK_DIR}
+	rm -f ${AURA_WORK_DIR}/*
+	cp CHANGELOG.md ./${AURA_WORK_DIR}/CHANGELOG-aura.md
+	-curl -f ${REPO_BASE}steering/-/raw/${AURA_STEERING_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-steering.md
+	-curl -f ${REPO_BASE}can/-/raw/${AURA_CAN_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-can.md
+	-curl -f  ${REPO_BASE}tank/-/raw/${AURA_TANK_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-tank.md
+	-curl -f  ${REPO_BASE}tank-cut-glue/-/raw/${AURA_TANK_CUTGLUE_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-tank-cut-glue.md
+	-curl -f  ${REPO_BASE}dashboard/-/raw/${AURA_DASHBOARD_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-dashboard.md
+	-curl -f  ${REPO_BASE}dashboard-clock/-/raw/${AURA_DASHBOARD_CLOCK_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-dashboard-clock.md
+	-curl -f  ${REPO_BASE}engine/-/raw/${AURA_ENGINE_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-engine.md
+	-curl -f  ${REPO_BASE}engine-api/-/raw/${AURA_ENGINE_API_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-engine-api.md
+	-curl -f  ${REPO_BASE}engine-core/-/raw/${AURA_ENGINE_CORE_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-engine-core.md
+	-curl -f  ${REPO_BASE}engine-recorder/-/raw/${AURA_ENGINE_RECORDER_VERSION}/CHANGELOG.md?inline=false > ./${AURA_WORK_DIR}/CHANGELOG-engine-recorder.md
+
+dev.merge-changelog:: AURA_WORK_DIR := ./.tmp
+dev.merge-changelog::
+	mkdir -p ${AURA_WORK_DIR}
+	poetry run python scripts/merge_changelog.py
+
+dev.prepare-release:: dev.clone-systemd
+dev.prepare-release:: dev.clone-config
+dev.prepare-release:: dev.clone-fixtures
+dev.prepare-release:: dev.clone-changelog
+dev.prepare-release:: dev.merge-changelog
+dev.prepare-release::
+	@echo Release prepared.
+	@echo
+	@echo Now update 'docs/release-notes.md' with relevant information from the changelog generated in '.tmp'.
+
+dev.release:: VERSION := $(shell poetry version)
+dev.release:: VERSION := $(lastword $(subst |, ,$(VERSION)))
+dev.release:: VERSION := ${shell echo $(VERSION) | sed -r "s/\\x1B[\\x5d\[]([0-9]{1,3}(;[0-9]{1,3})?(;[0-9]{1,3})?)?[mGK]?//g"}
+dev.release::
+	@echo Releasing AURA ${VERSION}
+	git tag $(VERSION)
+	git push origin $(VERSION)
+	@echo "Release '$(VERSION)' tagged and pushed successfully."
+
+version:: VERSION := $(shell poetry version)
+version:: VERSION := $(lastword $(subst |, ,$(VERSION)))
+version::
+	@echo AURA ${VERSION}
