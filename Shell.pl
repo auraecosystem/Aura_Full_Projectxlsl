@@ -15,3 +15,5 @@ mkdir -p schema src tests examples notebooks .github/workflows
 git add .
 git commit -m "Add schema, CI workflow, validators, examples and CONTRIBUTING"
 git push origin main
+
+curl -LsSf https://hf.co/cli/install.sh | bash
