@@ -1,33 +1,36 @@
-$git clone git@github.com:GoogleChromeLabs/baseline-demos.git
+$ git clone git@github.com:GoogleChromeLabs/baseline-demos.git
 cd baseline-demos/tooling/webpack
-$git checkout d3793f25
-$nvm install
-nvm use
-$npm install
-$npm start
-$git clone https://github.com/githubschool/scratch.git
+$ git checkout d3793f25
+$ nvm install
+nvm use 
+$ npm install
+$ npm start
+$ git clone https://github.com/githubschool/scratch.git
+
+meson setup build
 
 
 sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
 dfx --version
-$dfx new hello --type motoko --frontend react
+$ dfx new hello --type motoko --frontend react
 cd hello
-$dfx deploy --playground
+$ dfx deploy --playground
 export declare enum SublevelStates 
 
-$git checkout -b add/requirements-and-notebook-ci
+$ git checkout -b add/requirements-and-notebook-ci
 
-$docker run -it -p 7860:7860 --platform=linux/amd64 \
+$ docker run -it -p 7860:7860 --platform=linux/amd64 \
 	registry.hf.space/seriki-aura:latest python app.py
 
-$git clone https://huggingface.co/spaces/Seriki/Aura
+$ git clone https://huggingface.co/spaces/Seriki/Aura
 cd Aura
 
-$python -m venv env
-$source env/bin/activate
+$ python -m venv env
+$ source env/bin/activate
 
-$pip install -r requirements.txt
+$ pip install -r requirements.txt
 python app.py
+
 # create requirements.txt with the content above
 cat > requirements.txt <<'EOF'
 pandas>=2.0
