@@ -1,3 +1,8 @@
+---
+name: CHATBASE
+descr: 
+---
+
 # Delete chatbot icon
 Source: https://chatbase.co/docs/api-reference/assets/delete-chatbot-icon
 
@@ -169,6 +174,7 @@ Complete guide to integrating Chatbase AI Agents using our REST API for custom i
 
 The Chatbase REST API enables you to integrate AI-powered conversations into any application or workflow. Build custom chat experiences, automate customer interactions, and manage your AI agents programmatically.
 
+```xml
 <CardGroup>
   <Card title="Send Messages" icon="message-dots">
     Chat with your AI agents and handle real-time streaming responses
@@ -183,14 +189,16 @@ The Chatbase REST API enables you to integrate AI-powered conversations into any
   </Card>
 </CardGroup>
 
+```
+
 ## Quick Start
 
+```xml
 <Steps>
   <Step title="Get Your API Key">
     <Frame>
       <img alt="Creating API key in Chatbase dashboard" />
     </Frame>
-
     1. Visit your [Chatbase Dashboard](https://www.chatbase.co/dashboard)
     2. Navigate to **Workspace Settings** → **API Keys**
     3. Click **Create API Key** and copy the generated key
@@ -211,9 +219,11 @@ The Chatbase REST API enables you to integrate AI-powered conversations into any
   </Step>
 
   <Step title="Send Your First Message">
-    Test your integration with a simple chat request:
+```
+# Test your integration with a simple chat request:
 
-    ```bash theme={null}
+
+```curl theme={null}
     curl -X POST 'https://www.chatbase.co/api/v1/chat' \
       -H 'Authorization: Bearer YOUR_API_KEY' \
       -H 'Content-Type: application/json' \
@@ -221,25 +231,24 @@ The Chatbase REST API enables you to integrate AI-powered conversations into any
         "messages": [{"content": "Hello! How can you help me?", "role": "user"}],
         "chatbotId": "your-chatbot-id-here"
       }'
-    ```
+```
 
-    **Expected Response:**
+  **Expected Response:**
 
-    ```json theme={null}
+   ```json theme={null}
     {
       "text": "Hello! I'm here to help answer your questions and assist with any information you need. What can I help you with today?"
     }
-    ```
   </Step>
 </Steps>
-
+```
 ### Chat API Streaming
 
 The [chat API](/api-reference/chat) supports real-time streaming responses for better user experience.
 
-<CodeGroup>
-  ```javascript Node.js theme={null}
-  // streamer.js
+    <CodeGroup>
+  ```Node.js theme={null}
+ // streamer.js
 
   const axios = require('axios')
   const {Readable} = require('stream')
@@ -363,15 +372,15 @@ The [chat API](/api-reference/chat) supports real-time streaming responses for b
 ## 🚀 Try It Live!
 
 Ready to see the magic in action? Dive straight into our interactive playground where you can test every API endpoint, experiment with real responses, and build your integration in real-time.
-
+```xml
 <CardGroup>
   <Card title="🎮 Launch Interactive Playground" icon="play" href="/api-reference">
     Test APIs instantly • No setup required • Real-time responses • Copy working code snippets
   </Card>
 </CardGroup>
-
+```
 ### Key API Endpoints
-
+```yaml
 <CardGroup>
   <Card title="Chat API" icon="message-dots" href="/api-reference/chat/chat-with-a-chatbot">
     Send messages and receive AI responses with streaming support
@@ -389,7 +398,7 @@ Ready to see the magic in action? Dive straight into our interactive playground 
     Create and manage contacts for your AI agents
   </Card>
 </CardGroup>
-
+```
 
 # Event Listeners
 Source: https://chatbase.co/docs/developer-guides/chatbot-event-listeners
@@ -399,12 +408,12 @@ Listen for and respond to real-time chat events including user messages, AI resp
 Event listeners allow you to monitor and react to everything happening in your AI Agent conversations. From user messages to custom actions, you can build rich, interactive experiences that respond dynamically to user interactions.
 
 ## Why Use Event Listeners?
-
+```yaml
 <AccordionGroup>
   <Accordion title="Custom User Experiences">
     Create dynamic, responsive interactions:
 
-    * Show contextual information based on conversation topic
+   * Show contextual information based on conversation topic
     * Trigger UI changes based on user messages
     * Provide visual feedback for AI responses
     * Integrate chat with other page elements
@@ -419,9 +428,9 @@ Event listeners allow you to monitor and react to everything happening in your A
     * Sync conversation data with support systems
   </Accordion>
 </AccordionGroup>
-
+```
 ### Prerequisites
-
+```yaml
 <Info>
   A website with the Chatbase embed script already installed and working.
   New to Chatbase? Check out [Your First Agent](/user-guides/quick-start/your-first-agent) to get started with the embed script first.
@@ -521,8 +530,6 @@ Add event listeners using the simple syntax:
 
 ```javascript theme={null}
 window.chatbase.addEventListener(eventName, callbackFunction);
-```
-
 <ParamField type="enum">
   Must be one of the event names listed in Available Event Types.
 </ParamField>
@@ -530,12 +537,13 @@ window.chatbase.addEventListener(eventName, callbackFunction);
 <ParamField type="function">
   Function to be called when the event is fired. The event payload is passed as an argument.
 </ParamField>
-
+```
 ### Removing Event Listeners
 
 Remove listeners when they're no longer needed to prevent memory leaks:
 
 <CodeGroup>
+
   ```javascript Basic Removal theme={null}
   // Store reference to callback function
   const myEventHandler = (event) => {
@@ -547,9 +555,8 @@ Remove listeners when they're no longer needed to prevent memory leaks:
 
   // Remove listener later
   window.chatbase.removeEventListener('user-message', myEventHandler);
-  ```
-
-  ```javascript React Component Example theme={null}
+```
+```javascript React Component Example theme={null}
   // In React, clean up listeners on unmount
   useEffect(() => {
     const handleUserMessage = (event) => {
@@ -569,7 +576,7 @@ Remove listeners when they're no longer needed to prevent memory leaks:
 ## Event Management Best Practices
 
 ## Troubleshooting
-
+```xml
 <AccordionGroup>
   <Accordion title="Events Not Firing">
     **Problem:** Event listeners aren't being called
