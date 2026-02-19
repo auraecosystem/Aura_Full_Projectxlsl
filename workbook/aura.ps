@@ -1,4 +1,4 @@
-# Create Excel application
+# Create new excel-like sheet with a pdf-like webinterface but performing scientific,quantum.database, training of ai,with the name paperworkbook (xlsl) paper webapplication
 $Excel = New-Object -ComObject Excel.Application
 $Excel.Visible = $false
 $Workbook = $Excel.Workbooks.Add()
@@ -59,7 +59,7 @@ $VBA_Module.CodeModule.AddFromString($MacroCode)
 $FilePath="$env:USERPROFILE\Desktop\AuraUltimateControlPanel.xltm"
 $Workbook.SaveAs($FilePath,52)
 
-# Close Excel
+# Close workbook
 $Workbook.Close($true)
 $Excel.Quit()
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($Excel)|Out-Null
