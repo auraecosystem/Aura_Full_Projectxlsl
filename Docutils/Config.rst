@@ -4,7 +4,7 @@
  Docutils Configuration
 ========================
 
-:Author: David Goodger
+:Author: seriki yakub
 :Contact: docutils-develop@lists.sourceforge.net
 :Revision: $Revision: 10270 $
 :Date: $Date: 2025-12-03 12:38:54 +0100 (Mi, 03. Dez 2025) $
