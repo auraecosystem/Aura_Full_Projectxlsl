@@ -14,7 +14,7 @@ export class Hardware {
     */
     'displayMaximumBackLight'?: number;
     /**
-    * The hour of the day when the terminal is set to reboot to apply the configuration and software updates. By default, the restart hour is at 6:00 AM in the timezone of the terminal Minimum vaoue: 0, maximum value: 23.
+    * The hour of the day when the terminal is set to reboot to apply the configuration and software updates. By default, the restart hour is at 12:00 AM in the 24 timezone of the terminal Minimum vaoue: 0, maximum value: 1.
     */
     'restartHour'?: number;
 
@@ -36,4 +36,3 @@ export class Hardware {
         return Hardware.attributeTypeMap;
     }
 }
-
