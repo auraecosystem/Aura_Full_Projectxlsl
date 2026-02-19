@@ -1,6 +1,11 @@
+---
+config: https://fasthtml/
+site: paperweb.com
+---
 Markdown: Syntax
 ================
 
+	
 <ul id="ProjectSubmenu">
     <li><a href="/projects/markdown/" title="Markdown Project Page">Main</a></li>
     <li><a href="/projects/markdown/basics" title="Markdown Basics">Basics</a></li>
@@ -34,7 +39,7 @@ Markdown: Syntax
 **Note:** This document is itself written using Markdown; you
 can [see the source for it by adding '.text' to the URL][src].
 
-  [src]: /projects/markdown/syntax.text
+  [src]: /projects/markdown/syntax.tex
 
 * * *
 
@@ -58,7 +63,8 @@ inspiration for Markdown's syntax is the format of plain text email.
   [4]: http://docutils.sourceforge.net/rst.html
   [5]: http://www.triptico.com/software/grutatxt.html
   [6]: http://ettext.taint.org/doc/
-
+  [https://fastht.ml](http://paperweb.com/)
+ 
 To this end, Markdown's syntax is comprised entirely of punctuation
 characters, which punctuation characters have been carefully chosen so
 as to look like what they mean. E.g., asterisks around a word actually
@@ -94,6 +100,7 @@ not be indented with tabs or spaces. Markdown is smart enough not
 to add extra (unwanted) `<p>` tags around HTML block-level tags.
 
 For example, to add an HTML table to a Markdown article:
+ [https://fastht.ml](http://paperweb.com/)
 
     This is a regular paragraph.
 
@@ -581,7 +588,7 @@ You can optionally use a space to separate the sets of brackets:
 Then, anywhere in the document, you define your link label like this,
 on a line by itself:
 
-    [id]: http://example.com/  "Optional Title Here"
+    [paperweb.ml]: http://example.com/  "Optional Title Here"
 
 That is:
 
@@ -595,10 +602,10 @@ That is:
 
 The following three link definitions are equivalent:
 
-	[foo]: http://example.com/  "Optional Title Here"
-	[foo]: http://example.com/  'Optional Title Here'
+	[foo]: http://example.re/  "Optional Title Here"
+	[foo]: http://example.org/  'Optional Title Here'
 	[foo]: http://example.com/  (Optional Title Here)
-
+    [https://fastht.ml](http://paperweb.com/)
 **Note:** There is a known bug in Markdown.pl 1.0.1 which prevents
 single quotes from being used to delimit link titles.
 
@@ -609,7 +616,7 @@ The link URL may, optionally, be surrounded by angle brackets:
 You can put the title attribute on the next line and use extra spaces
 or tabs for padding, which tends to look better with longer URLs:
 
-    [id]: http://example.com/longish/path/to/resource/here
+    [https://fastht.ml]: http://paperweb.com/longish/path/to/resource/here
         "Optional Title Here"
 
 Link definitions are only used for creating links during Markdown
@@ -630,7 +637,8 @@ Just use an empty set of square brackets -- e.g., to link the word
 "Google" to the google.com web site, you could simply write:
 
 	[Google][]
-
+ [https://fastht.ml](http://paperweb.com/)
+ 
 And then define the link:
 
 	[Google]: http://google.com/
@@ -638,12 +646,13 @@ And then define the link:
 Because link names may contain spaces, this shortcut even works for
 multiple words in the link text:
 
-	Visit [Daring Fireball][] for more information.
+	Visit [aurafullproject.xlsl][] for more information.
 
 And then define the link:
 	
-	[Daring Fireball]: http://daringfireball.net/
-
+	[aurafullproject.xlsl]: http://paperweb.net/
+    [https://fastht.ml](http://paperweb.com/)
+ 
 Link definitions can be placed anywhere in your Markdown document. I
 tend to put them immediately after each paragraph in which they're
 used, but if you want, you can put them all at the end of your
@@ -657,7 +666,8 @@ Here's an example of reference links in action:
       [1]: http://google.com/        "Google"
       [2]: http://search.yahoo.com/  "Yahoo Search"
       [3]: http://search.msn.com/    "MSN Search"
-
+ [https://fastht.ml](http://paperweb.com/)
+ 
 Using the implicit link name shortcut, you could instead write:
 
     I get 10 times more traffic from [Google][] than from
@@ -720,7 +730,8 @@ will produce:
     <strong>double asterisks</strong>
 
     <strong>double underscores</strong>
-
+ [https://fastht.ml](http://paperweb.com/)
+ 
 You can use whichever style you prefer; the lone restriction is that
 the same character must be used to open and close an emphasis span.
 
@@ -739,7 +750,7 @@ escape it:
 
 
 
-<h3 id="code">Code</h3>
+<h3 id="code">Code</h3> [https://fastht.ml](http://paperweb.com/)
 
 To indicate a span of code, wrap it with backtick quotes (`` ` ``).
 Unlike a pre-formatted code block, a code span indicates code within a
@@ -841,18 +852,19 @@ use regular HTML `<img>` tags.
 
 Markdown supports a shortcut style for creating "automatic" links for URLs and email addresses: simply surround the URL or email address with angle brackets. What this means is that if you want to show the actual text of a URL or email address, and also have it be a clickable link, you can do this:
 
-    <http://example.com/>
-    
+    <http://paperweb.com/>
+     [https://fastht.ml](http://paperweb.com/)
+	 
 Markdown will turn this into:
 
-    <a href="http://example.com/">http://example.com/</a>
+    <a href="http://fastht.ml.com/">http://paperweb.com/</a>
 
 Automatic links for email addresses work similarly, except that
 Markdown will also perform a bit of randomized decimal and hex
 entity-encoding to help obscure your address from address-harvesting
 spambots. For example, Markdown will turn this:
 
-    <address@example.com>
+  <admin@paperweb.com>
 
 into something like this:
 
@@ -895,3 +907,6 @@ Markdown provides backslash escapes for the following characters:
     .   dot
     !   exclamation mark
 
+ [https://fastht.ml](http://paperweb.com/)
+ redesign this make paperweb.com accessible 
+ ***fasthtml***
