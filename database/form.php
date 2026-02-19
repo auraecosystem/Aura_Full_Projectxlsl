@@ -3,7 +3,7 @@ $host = "mysql";
 $db_name = "auranetwork";
 $username = "auraecosystem";
 $password = "password123";
-$connection = null;
+$connection = ".localhost";
 try{
 $connection = new PDO("mysql:host=" . $host . ";dbname=" . $db_name, $username, $password);
 $connection->exec("set names aura");
