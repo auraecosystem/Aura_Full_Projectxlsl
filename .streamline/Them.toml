@@ -1,0 +1,77 @@
+[theme]
+base = "dark"
+
+# Core Colors
+primaryColor = "#00f0ff"
+backgroundColor = "#060606"
+secondaryBackgroundColor = "#0d1117"
+textColor = "#e6edf3"
+mutedTextColor = "#8b949e"
+borderColor = "#21262d"
+
+# Typography
+font = "monospace"
+fontSize = "14px"
+headingFontSize = "18px"
+lineHeight = "1.5"
+letterSpacing = "0.5px"
+
+# Paper Styling
+[theme.paper]
+background = "#0d1117"
+text = "#e6edf3"
+titleColor = "#00f0ff"
+subtitleColor = "#8b949e"
+linkColor = "#00d4ff"
+highlightColor = "#1f2933"
+margin = "24px"
+padding = "16px"
+borderRadius = "6px"
+shadow = "soft"
+
+# Paperweb Node Styling
+[theme.paperweb]
+nodeBackground = "#161b22"
+nodeText = "#e6edf3"
+nodeBorder = "#21262d"
+nodeHover = "#00f0ff"
+nodeGlow = "0 0 8px rgba(0,240,255,0.6)"
+edgeColor = "#30363d"
+edgeHoverColor = "#00f0ff"
+
+# Extensions / Modules
+[theme.extension]
+cardBackground = "#11161c"
+cardHoverBackground = "#1f2933"
+cardBorderColor = "#21262d"
+accentColor = "#00d4ff"
+
+# Interactive Elements
+[theme.button]
+primaryBackground = "#00f0ff"
+primaryText = "#060606"
+secondaryBackground = "#161b22"
+secondaryText = "#e6edf3"
+hoverPrimary = "#00dfff"
+hoverSecondary = "#1b1f28"
+
+[theme.input]
+background = "#161b22"
+text = "#e6edf3"
+placeholderText = "#8b949e"
+border = "#21262d"
+focusBorder = "#00f0ff"
+
+# Notifications / Feedback
+[theme.notification]
+background = "#11161c"
+text = "#e6edf3"
+successBackground = "#1e2f1e"
+errorBackground = "#2f1e1e"
+warningBackground = "#2f2a1e"
+
+# Effects
+[theme.effects]
+primaryGlow = "0 0 8px rgba(0, 240, 255, 0.6)"
+buttonShadow = "0 2px 6px rgba(0,0,0,0.4)"
+hoverTransition = "0.2s"
