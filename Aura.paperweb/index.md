@@ -1,8 +1,9 @@
 ⸻
 
-# [🌐AURA.PAPERWEB](https://fasthtml/)
+# [🌐AURA.PAPERWEB](https://aura.build/)
 
- `***fastht.ml***` build this universal sheet → functional web
+ **https://fastht.ml**
+ build this universal sheet → functional web
 page → and
 A map of your whole AURA universe made readable, clickable, and alive.
 
