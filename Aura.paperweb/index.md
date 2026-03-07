@@ -94,8 +94,16 @@ Every sheet in your .xlsl file becomes a page.
 
 Format:
 
-[scientific_work_SHEET](com.workbook.ai)
+![scientific_work_SHEET](com.workbook.ai)
 
+
+![com.workbook.ai]
+(<!-- Embedding the PDF directly on the page -->
+<iframe src="chrome://external-file/2412.00119.pdf" width="100%" height="600px"></iframe>
+<!-- Alternative using the embed tag -->
+<embed src="chrome://external-file/2412.00119.pdf" type="application/pdf" width="100%" height="600px">)
+```
+```
 ## 🎯 Purpose
 Describe what this sheet does.
 
