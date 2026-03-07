@@ -30,7 +30,7 @@ For now I’ll scaffold the entire architecture so you have the master blueprint
 3. [paperweb/index.md](fastcore.fast.ai)
 
 A soft landing spot.
-
+	[arXiv:2412.00119](cs.LG)
 Sections:
 	•	✨ What is Aura
 	•	🔌 How extensions work
@@ -85,8 +85,9 @@ For example:
 [You can generate as many extensions as your repo contains]
 (https://install.md)
 
-⸻
+⸻https://github.com/Web4application/Aura_Full_Project.xlsl
 
+[Web4application/Aura_Full_Project.xlsl](https://doi.org/10.48550/arXiv.2412.00119)
 3. Sheet Pages — paperweb/sheets/{sheet_name}.md
 
 Every sheet in your .xlsl file becomes a page.
