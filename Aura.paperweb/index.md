@@ -1,6 +1,6 @@
 ⸻
 
-# [🌐 AURA.PAPERWEB](https://fastht.ml)
+# [🌐AURA.PAPERWEB](https://fasthtml/)
 
  `***fastht.ml***` build this universal sheet → functional web
 page → and
