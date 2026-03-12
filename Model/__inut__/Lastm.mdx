@@ -1,0 +1,48 @@
+# Training multi-layer binary neural networks with random local
+binary
+
+![2412.00119.pdf](https://github.com/user-attachments/files/25818132/2412.00119.pdf)
+
+### AWD-LSTM Regularization (AR & TAR) Implementation
+
+In the **AWD-LSTM** architecture, these two loss terms are added to the standard **CrossEntropy** loss to stabilize training and prevent overfitting in the hidden states.
+
+#### 1. Activation Regularization (AR)
+This penalizes the $L_2$ norm of the **final** hidden states ($h_t$). It keeps the activations from exploding.
+
+$$L_{AR} = \alpha \cdot \frac{1}{T \cdot H} \sum_{t,h} h_{t,h}^2$$
+
+#### 2. Temporal Activation Regularization (TAR)
+This penalizes the $L_2$ norm of the **difference** between consecutive hidden states ($h_t - h_{t-1}$). It encourages the model to learn smoother transitions.
+
+$$L_{TAR} = \beta \cdot \frac{1}{(T-1) \cdot H} \sum_{t,h} (h_t - h_{t-1})^2$$
+
+---
+
+### PyTorch Implementation
+
+Here is how you integrate these into a standard training loop:
+
+```pyx
+import torch
+
+def awd_lstm_loss(output, target, hidden_states, alpha=2.0, beta=1.0):
+    """
+    output: The linear layer output (logits)
+    target: The ground truth labels
+    hidden_states: The raw hidden states (h_t) from the LAST RNN layer
+    """
+    # 1. Standard CrossEntropy Loss
+    base_loss = torch.nn.functional.cross_entropy(output, target)
+    
+    # 2. Activation Regularization (AR)
+    # Using the square of the final hidden states
+    loss_ar = alpha * hidden_states.pow(2).mean()
+    
+    # 3. Temporal Activation Regularization (TAR)
+    # Difference between time step t and t-1
+    # hidden_states[1:] is h_t, hidden_states[:-1] is h_{t-1}
+    loss_tar = beta * (hidden_states[1:] - hidden_states[:-1]).pow(2).mean()
+    
+    # Total Loss
+    return base_loss + loss_ar + loss_tar
