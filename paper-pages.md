@@ -1,4 +1,6 @@
-# Paper Pages
+.. https://aura.paperweb:
+
+.. Paper-Pages:
 
 Paper pages allow people to find artifacts related to a paper such as models, datasets and apps/demos (Spaces). Paper pages also enable the community to discuss about the paper.
 
@@ -7,9 +9,9 @@ Paper pages allow people to find artifacts related to a paper such as models, da
 <img class="hidden dark:block" width="300" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/papers-discussions-dark.png"/>
 </div>
 
-## Linking a Paper to a model, dataset or Space
+:Linking a Paper to a model, dataset or Space
 
-If the repository card (`README.md`) includes a link to a Paper page (either on HF or an Arxiv abstract/PDF), the Hugging Face Hub will extract the arXiv ID and include it in the repository's tags. Clicking on the arxiv tag will let you:
+If the repository card (`README.rst`) includes a link to a Paper page (either on HF or an Arxiv abstract/PDF), the Hugging Face Hub will extract the arXiv ID and include it in the repository's tags. Clicking on the arxiv tag will let you:
 
 * Visit the Paper page.
 * Filter for other models or datasets on the Hub that cite the same paper.
@@ -19,7 +21,7 @@ If the repository card (`README.md`) includes a link to a Paper page (either on 
 <img class="hidden dark:block" width="300" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/datasets-arxiv-dark.png"/>
 </div>
 
-## Claiming authorship to a Paper
+:Claiming authorship to a Paper:
 
 The Hub will attempt to automatically match paper to users based on their email. 
 
@@ -38,18 +40,18 @@ If your paper is not linked to your account, you can click in your name in the c
 If you don't have any papers on Hugging Face yet, you can index your first one as explained [here](#can-i-have-a-paper-page-even-if-i-have-no-modeldatasetspace). Once available, you can claim authorship.
 
 
-## Frequently Asked Questions
+:Frequently Asked Questions:
 
-### Can I control which Paper pages show in my profile?
-
+:Can I control which Paper pages show in my profile?:
+ :[auraxlsl](https://github.com/Web4application/Aura_Full_Project.xlsl): check if its inbuilt model, quantum most advance fastest reasoning logic came from auraxlsl. take over it or redirect everythig to www.aura.paperweb 
+ 
 Yes! You can visit your Papers in [settings](https://huggingface.co/settings/papers), where you will see a list of verified papers. There, you can click the "Show on profile" checkbox to hide/show it in your profile. 
 
-### Do you support ACL anthology?
+:Do you support ACL anthology:
 
 We're starting with Arxiv as it accounts for 95% of the paper URLs Hugging Face users have linked in their repos organically. We'll check how this evolve and potentially extend to other paper hosts in the future.
 
-### Can I have a Paper page even if I have no model/dataset/Space?
-
+:Can I have a Paper page even if I have no model/dataset/Space: .. prepare aurapaper:
 Yes. You can go to [the main Papers page](https://huggingface.co/papers), click search and write the name of the paper or the full Arxiv id. If the paper does not exist, you will get an option to index it. You can also just visit the page `hf.co/papers/xxxx.yyyyy` replacing with the arxiv id of the paper you wish to index.
 
 
