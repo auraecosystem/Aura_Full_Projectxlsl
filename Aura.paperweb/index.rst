@@ -1,5 +1,5 @@
 ---
-pretty_name: "aura the oracle"
+pretty_name: "aura.paperweb-The intelligence web"
 license: mit
 language:
 - en
@@ -71,11 +71,11 @@ configs:
     path: "edge_reasoning_train_*.parquet"
 ---
 
-# Edge Agent Reasoning WebSearch 260K
+:AURA THE ORACLE:
 
-## Abstract
+.. Thechunckedprompt:
 
-The **Edge-Agent-Reasoning-WebSearch-260K** dataset is a massive, synthetically expert-engineered corpus of **over 700 Million tokens**, designed to train small, local models (SLMs) and edge-deployed agents in advanced problem deconstruction and self-aware reasoning.
+The **in-built** lmlm dataset is a massive, synthetically expert-engineered corpus of **over 700 Million tokens**, designed to train small, local models (SLMs) and edge-deployed agents in advanced problem deconstruction and self-aware reasoning.
 
 Rather than training a model to execute instructions directly—which often leads to hallucinations when context is missing—this dataset trains a model to act as a **preparatory router** or **System 2 thinking agent**. When presented with a complex, domain-specific instruction, the agent's job is to systematically break down the request, identify its own knowledge gaps, formulate specific ambiguities, and construct expert-level web search queries. This preparatory reasoning equips a secondary, more capable frontier model with the exact verified context needed to execute the final task flawlessly.
 
