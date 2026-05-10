@@ -1,0 +1,15 @@
+source "azure-arm" "ubuntu" {
+  subscription_id = "xxxx"
+  managed_image_name = "ubuntu24-custom"
+}
+
+build {
+  sources = ["source.azure-arm.ubuntu"]
+
+  provisioner "shell" {
+    inline = [
+      "apt update",
+      "apt install -y nginx docker.io"
+    ]
+  }
+}
