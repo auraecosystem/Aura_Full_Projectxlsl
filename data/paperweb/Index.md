@@ -1,10 +1,9 @@
+first project
 
-⸻
-## first project
 
-## • ———— 
 
-| aura_project/
+| aura_project |
+
  ├── data/
  │    └── Aura.xlsx              # your data hub
  ├── src/
@@ -57,10 +56,7 @@ Structure
 Use-Cases
 	•	AI-assisted quantum state reasoning.
 	•	Interoperability with Qiskit, Cirq, Rigetti simulators.
-	•	Teleportation experiment modeling.
-
-⸻
-
+	•	Teleportation experiment 
 3. .xsim — Simulation Spreadsheet
 
 Purpose
@@ -356,12 +352,10 @@ The expanded Aura project workbook is now ready with all new sheets for a comple
 
 This brings Aura.xlsl to a total of 26 sheets, making it a fully functional research and project hub supporting AI, quantum computing, lifespan studies, applied STEM research, ethics, economics, simulations, visualization, collaboration, and deployment.
 
-You can download the full workbook here: Aura_Full_Project.xlsl
-
-
-```
-———
+You can download the full workbook here: 
 		
-| <img width="480" height="480" alt="image" src="https://github.com/user-attachments/assets/52ab2b56-b0b6-4a26-9871-6c3cf8cb53a7" /> - | <img width="480" height="480" alt="image" - | src="https://github.com/user-attachments/assets/9853e362-7677-45d2-9a1b-a75437e07486" /> - | <img width="480" height="480" alt="image" - |src="https://github.com/user-attachments/assets/a7b76ddc-6a1f-466b-9beb-e34224d76e74" /> |
+<img width="480" height="480" alt="image" src="https://github.com/user-attachments/assets/52ab2b56-b0b6-4a26-9871-6c3cf8cb53a7" /> 
+- | <img width="480" height="480" alt="image"  src="https://github.com/user-attachments/assets/9853e362-7677-45d2-9a1b-a75437e07486" /> 
+-  <img width="480" height="480" alt="image" src="https://github.com/user-attachments/assets/a7b76ddc-6a1f-466b-9beb-e34224d76e74" /> 
 
-————
+
