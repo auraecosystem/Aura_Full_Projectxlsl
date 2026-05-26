@@ -1,0 +1,379 @@
+2026-03-24T17:29:22.4477322Z Current runner version: '2.332.2026-03-24T17:29:22.4477322Z Current runner version: '2.332.0'
+2026-03-24T17:29:22.4502995Z ##[group]Runner Image Provisioner
+2026-03-24T17:29:22.4503849Z Hosted Compute Agent
+2026-03-24T17:29:22.4504373Z Version: 20260213.493
+2026-03-24T17:29:22.4505055Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-03-24T17:29:22.4505741Z Build Date: 2026-02-13T00:28:41Z
+2026-03-24T17:29:22.4506735Z Worker ID: {e1c555a4-fb30-4ae7-ae26-4c20a5355b52}
+2026-03-24T17:29:22.4507467Z Azure Region: westcentralus
+2026-03-24T17:29:22.4508063Z ##[endgroup]
+2026-03-24T17:29:22.4509504Z ##[group]Operating System
+2026-03-24T17:29:22.4510205Z Ubuntu
+2026-03-24T17:29:22.4510664Z 24.04.3
+2026-03-24T17:29:22.4511174Z LTS
+2026-03-24T17:29:22.4511674Z ##[endgroup]
+2026-03-24T17:29:22.4512155Z ##[group]Runner Image
+2026-03-24T17:29:22.4512715Z Image: ubuntu-24.04
+2026-03-24T17:29:22.4513170Z Version: 20260309.50.1
+2026-03-24T17:29:22.4514445Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260309.50/images/ubuntu/Ubuntu2404-Readme.md
+2026-03-24T17:29:22.4515945Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260309.50
+2026-03-24T17:29:22.4517154Z ##[endgroup]
+2026-03-24T17:29:22.4518110Z ##[group]GITHUB_TOKEN Permissions
+2026-03-24T17:29:22.4520321Z Contents: read
+2026-03-24T17:29:22.4520921Z Metadata: read
+2026-03-24T17:29:22.4521385Z ##[endgroup]
+2026-03-24T17:29:22.4523624Z Secret source: None
+2026-03-24T17:29:22.4524292Z Prepare workflow directory
+2026-03-24T17:29:22.4931178Z Prepare all required actions
+2026-03-24T17:29:22.4971557Z Getting action download info
+2026-03-24T17:29:22.9073739Z Download action repository 'actions/checkout@v5' (SHA:93cb6efe18208431cddfb8368fd83d5badbf9bfd)
+2026-03-24T17:29:23.0310947Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-03-24T17:29:23.2407285Z Complete job name: validate-data
+2026-03-24T17:29:23.3196961Z ##[group]Run actions/checkout@v5
+2026-03-24T17:29:23.3197946Z with:
+2026-03-24T17:29:23.3198495Z   repository: Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.3199431Z   token: ***
+2026-03-24T17:29:23.3199867Z   ssh-strict: true
+2026-03-24T17:29:23.3200313Z   ssh-user: git
+2026-03-24T17:29:23.3200751Z   persist-credentials: true
+2026-03-24T17:29:23.3201257Z   clean: true
+2026-03-24T17:29:23.3201697Z   sparse-checkout-cone-mode: true
+2026-03-24T17:29:23.3202220Z   fetch-depth: 1
+2026-03-24T17:29:23.3202655Z   fetch-tags: false
+2026-03-24T17:29:23.3203102Z   show-progress: true
+2026-03-24T17:29:23.3203567Z   lfs: false
+2026-03-24T17:29:23.3203988Z   submodules: false
+2026-03-24T17:29:23.3204437Z   set-safe-directory: true
+2026-03-24T17:29:23.3205181Z ##[endgroup]
+2026-03-24T17:29:23.4278916Z Syncing repository: Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4281169Z ##[group]Getting Git version info
+2026-03-24T17:29:23.4282190Z Working directory is '/home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl'
+2026-03-24T17:29:23.4283411Z [command]/usr/bin/git version
+2026-03-24T17:29:23.4327278Z git version 2.53.0
+2026-03-24T17:29:23.4382380Z ##[endgroup]
+2026-03-24T17:29:23.4398835Z Temporarily overriding HOME='/home/runner/work/_temp/075ab82a-1a9c-46dd-abb3-fd6dbbbdcfbd' before making global git config changes
+2026-03-24T17:29:23.4401084Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-24T17:29:23.4404535Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4450787Z Deleting the contents of '/home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl'
+2026-03-24T17:29:23.4455185Z ##[group]Initializing the repository
+2026-03-24T17:29:23.4460569Z [command]/usr/bin/git init /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4583468Z hint: Using 'main' as the name for the initial branch. This default branch name
+2026-03-24T17:29:23.4585424Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-03-24T17:29:23.4587817Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-03-24T17:29:23.4588873Z hint: call:
+2026-03-24T17:29:23.4589752Z hint:
+2026-03-24T17:29:23.4591119Z hint: 	git config --global init.defaultBranch <main>
+2026-03-24T17:29:23.4592597Z hint:
+2026-03-24T17:29:23.4593807Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-03-24T17:29:23.4595341Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-03-24T17:29:23.4596593Z hint:
+2026-03-24T17:29:23.4597336Z hint: 	git branch -m <main>
+2026-03-24T17:29:23.4597945Z hint:
+2026-03-24T17:29:23.4599166Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-03-24T17:29:23.4600861Z Initialized empty Git repository in /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl/.git/
+2026-03-24T17:29:23.4603078Z [command]/usr/bin/git remote add origin https://github.com/Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4641181Z ##[endgroup]
+2026-03-24T17:29:23.4642004Z ##[group]Disabling automatic garbage collection
+2026-03-24T17:29:23.4645489Z [command]/usr/bin/git config --local gc.auto 0
+2026-03-24T17:29:23.4681090Z ##[endgroup]
+2026-03-24T17:29:23.4682560Z ##[group]Setting up auth
+2026-03-24T17:29:23.4689618Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-24T17:29:23.4729005Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-24T17:29:23.5122643Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-24T17:29:23.5161925Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-24T17:29:23.5447030Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-24T17:29:23.5489308Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-24T17:29:23.5742421Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-03-24T17:29:23.5785038Z ##[endgroup]
+2026-03-24T17:29:23.5786823Z ##[group]Fetching the repository
+2026-03-24T17:29:23.5796642Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ce6fc7f705a2e313cf1f52c0f385db12e65233ef:refs/remotes/pull/4/merge
+2026-03-24T17:29:25.5346894Z From https://github.com/Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:25.5349427Z  * [new ref]         ce6fc7f705a2e313cf1f52c0f385db12e65233ef -> pull/4/merge
+2026-03-24T17:29:25.5384192Z ##[endgroup]
+2026-03-24T17:29:25.5384725Z ##[group]Determining the checkout info
+2026-03-24T17:29:25.5387444Z ##[endgroup]
+2026-03-24T17:29:25.5394193Z [command]/usr/bin/git sparse-checkout disable
+2026-03-24T17:29:25.5445956Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-03-24T17:29:25.5479907Z ##[group]Checking out the ref
+2026-03-24T17:29:25.5485295Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4/merge
+2026-03-24T17:29:26.5797567Z Updating files:  94% (950/1006)
+2026-03-24T17:29:26.6016291Z Updating files:  95% (956/1006)
+2026-03-24T17:29:26.6323887Z Updating files:  96% (966/1006)
+2026-03-24T17:29:26.6374171Z Updating files:  97% (976/1006)
+2026-03-24T17:29:26.6440816Z Updating files:  98% (986/1006)
+2026-03-24T17:29:26.6447867Z Updating files:  99% (996/1006)
+2026-03-24T17:29:26.6448567Z Updating files: 100% (1006/1006)
+2026-03-24T17:29:26.6449061Z Updating files: 100% (1006/1006), done.
+2026-03-24T17:29:26.6467401Z Note: switching to 'refs/remotes/pull/4/merge'.
+2026-03-24T17:29:26.6467924Z 
+2026-03-24T17:29:26.6468301Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-03-24T17:29:26.6469669Z changes and commit them, and you can discard any commits you make in this
+2026-03-24T17:29:26.6470476Z state without impacting any branches by switching back to a branch.
+2026-03-24T17:29:26.6470953Z 
+2026-03-24T17:29:26.6471337Z If you want to create a new branch to retain commits you create, you may
+2026-03-24T17:29:26.6472322Z do so (now or later) by using -c with the switch command. Example:
+2026-03-24T17:29:26.6472776Z 
+2026-03-24T17:29:26.6472960Z   git switch -c <new-branch-name>
+2026-03-24T17:29:26.6473269Z 
+2026-03-24T17:29:26.6473393Z Or undo this operation with:
+2026-03-24T17:29:26.6473620Z 
+2026-03-24T17:29:26.6473730Z   git switch -
+2026-03-24T17:29:26.6473860Z 
+2026-03-24T17:29:26.6474078Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-03-24T17:29:26.6474441Z 
+2026-03-24T17:29:26.6474821Z HEAD is now at ce6fc7f Merge c12c3d887c823df1aeb3d9b23baba6fc497c7590 into a6534bb070c6a4914a7179629284d5ea94e7338c
+2026-03-24T17:29:26.6789277Z Encountered 28 files that should have been pointers, but weren't:
+2026-03-24T17:29:26.6790139Z 	Aura.xlsl.zip
+2026-03-24T17:29:26.6790570Z 	Auraecosystem.png
+2026-03-24T17:29:26.6790940Z 	Copilot_20251223_105117.png
+2026-03-24T17:29:26.6791424Z 	Wsl/cd ~wsl --export Aura .\WSL\YunoHost.tar.gz
+2026-03-24T17:29:26.6791920Z 	ai/scripts/kubu_hai_model.onnx
+2026-03-24T17:29:26.6792236Z 	aura.dev/web-features/scripts/Docs/Auraecosystem.png
+2026-03-24T17:29:26.6792609Z 	aura.dev/web-features/scripts/Docs/ray-so-export.png
+2026-03-24T17:29:26.6793117Z 	aura_genesis_system_signalbus/core/bio_plugin/daemon/neuro/VoiceAuthenticationModel.mlmodel
+2026-03-24T17:29:26.6793593Z 	blog/Auraecosystem.png
+2026-03-24T17:29:26.6793824Z 	blog/ray-so-export.png
+2026-03-24T17:29:26.6794066Z 	data/paperweb/github-mcp-server.exe
+2026-03-24T17:29:26.6794354Z 	data/paperweb/kubu_hai_model.onnx
+2026-03-24T17:29:26.6795053Z 	dfinity/llm/releases/latest/download/llm-canister-ollama.wasm
+2026-03-24T17:29:26.6795508Z 	github-mcp-server.exe
+2026-03-24T17:29:26.6795805Z 	kubu_hai_model.onnx
+2026-03-24T17:29:26.6796021Z 	libwebp-0.3.1.tar.gz
+2026-03-24T17:29:26.6796538Z 	libwebp-1.5.0-ios-framework.tar.gz.asc
+2026-03-24T17:29:26.6796842Z 	paperweb.com/Copilot_20251223_105117.png
+2026-03-24T17:29:26.6797113Z 	ray-so-export.png
+2026-03-24T17:29:26.6797440Z 	ray.so/Auraecosystem.theme=openai/Auraecosystem.png
+2026-03-24T17:29:26.6798219Z 	ray.so/Auraecosystem.theme=openai/Auraecosystem.theme=openai 2.png
+2026-03-24T17:29:26.6799031Z 	ray.so/Auraecosystem.theme=openai/ray-so-export.png
+2026-03-24T17:29:26.6799565Z 	streamlit run aura_app.py/__init__.pkl
+2026-03-24T17:29:26.6799853Z 	tools/latest.tar.gz.tar
+2026-03-24T17:29:26.6800193Z 	tools/tinycc-c004e9a34fb026bb44d211ab98bb768e79900eef.tar.gz.sig
+2026-03-24T17:29:26.6800569Z 	web.dev/docs/Auraecosystem.png
+2026-03-24T17:29:26.6800889Z 	web.dev/docs/Auraecosystem.theme=openai 2.png
+2026-03-24T17:29:26.6801193Z 	web.dev/docs/ray-so-export.png
+2026-03-24T17:29:26.6830122Z ##[endgroup]
+2026-03-24T17:29:26.6874943Z [command]/usr/bin/git log -1 --format=%H
+2026-03-24T17:29:26.6902194Z ce6fc7f705a2e313cf1f52c0f385db12e65233ef
+2026-03-24T17:29:26.7185818Z ##[group]Run actions/setup-node@v4
+2026-03-24T17:29:26.7186468Z with:
+2026-03-24T17:29:26.7186673Z   node-version: 24
+2026-03-24T17:29:26.7186881Z   cache: npm
+2026-03-24T17:29:26.7187167Z   cache-dependency-path: script/validate-data/package-lock.json
+2026-03-24T17:29:26.7187525Z   always-auth: false
+2026-03-24T17:29:26.7187737Z   check-latest: false
+2026-03-24T17:29:26.7188126Z   token: ***
+2026-03-24T17:29:26.7188324Z ##[endgroup]
+2026-03-24T17:29:26.9047446Z Found in cache @ /opt/hostedtoolcache/node/20.20.1/x64
+2026-03-24T17:29:26.9054248Z ##[group]Environment details
+2026-03-24T17:29:27.2893995Z node: v20.20.1
+2026-03-24T17:29:27.2894402Z npm: 10.8.2
+2026-03-24T17:29:27.2894764Z yarn: 1.22.22
+2026-03-24T17:29:27.2895568Z ##[endgroup]
+2026-03-24T17:29:27.2922481Z [command]/opt/hostedtoolcache/node/20.20.1/x64/bin/npm config get cache
+2026-03-24T17:29:27.4149587Z /home/runner/.npm
+2026-03-24T17:29:27.4315296Z ##[error]Some specified paths were not resolved, unable to cache dependencies.
+2026-03-24T17:29:27.4556538Z Post job cleanup.
+2026-03-24T17:29:27.5410718Z [command]/usr/bin/git version
+2026-03-24T17:29:27.5450860Z git version 2.53.0
+2026-03-24T17:29:27.5523491Z Temporarily overriding HOME='/home/runner/work/_temp/9fac3001-0330-450e-8ec7-e59e00ff8fa1' before making global git config changes
+2026-03-24T17:29:27.5524688Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-24T17:29:27.5530161Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl
+2026-03-24T17:29:27.5573980Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-24T17:29:27.5613711Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-24T17:29:27.5874823Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-24T17:29:27.5903943Z http.https://github.com/.extraheader
+2026-03-24T17:29:27.5916478Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-03-24T17:29:27.5954439Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-24T17:29:27.6214134Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-24T17:29:27.6251474Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-24T17:29:27.6660465Z Cleaning up orphan processes
+2026-03-24T17:29:27.6958655Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/setup-node@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-03-24T17:29:22.4502995Z ##[group]Runner Image Provisioner
+2026-03-24T17:29:22.4503849Z Hosted Compute Agent
+2026-03-24T17:29:22.4504373Z Version: 20260213.493
+2026-03-24T17:29:22.4505055Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-03-24T17:29:22.4505741Z Build Date: 2026-02-13T00:28:41Z
+2026-03-24T17:29:22.4506735Z Worker ID: {e1c555a4-fb30-4ae7-ae26-4c20a5355b52}
+2026-03-24T17:29:22.4507467Z Azure Region: westcentralus
+2026-03-24T17:29:22.4508063Z ##[endgroup]
+2026-03-24T17:29:22.4509504Z ##[group]Operating System
+2026-03-24T17:29:22.4510205Z Ubuntu
+2026-03-24T17:29:22.4510664Z 24.04.3
+2026-03-24T17:29:22.4511174Z LTS
+2026-03-24T17:29:22.4511674Z ##[endgroup]
+2026-03-24T17:29:22.4512155Z ##[group]Runner Image
+2026-03-24T17:29:22.4512715Z Image: ubuntu-24.04
+2026-03-24T17:29:22.4513170Z Version: 20260309.50.1
+2026-03-24T17:29:22.4514445Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260309.50/images/ubuntu/Ubuntu2404-Readme.md
+2026-03-24T17:29:22.4515945Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260309.50
+2026-03-24T17:29:22.4517154Z ##[endgroup]
+2026-03-24T17:29:22.4518110Z ##[group]GITHUB_TOKEN Permissions
+2026-03-24T17:29:22.4520321Z Contents: read
+2026-03-24T17:29:22.4520921Z Metadata: read
+2026-03-24T17:29:22.4521385Z ##[endgroup]
+2026-03-24T17:29:22.4523624Z Secret source: None
+2026-03-24T17:29:22.4524292Z Prepare workflow directory
+2026-03-24T17:29:22.4931178Z Prepare all required actions
+2026-03-24T17:29:22.4971557Z Getting action download info
+2026-03-24T17:29:22.9073739Z Download action repository 'actions/checkout@v5' (SHA:93cb6efe18208431cddfb8368fd83d5badbf9bfd)
+2026-03-24T17:29:23.0310947Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-03-24T17:29:23.2407285Z Complete job name: validate-data
+2026-03-24T17:29:23.3196961Z ##[group]Run actions/checkout@v5
+2026-03-24T17:29:23.3197946Z with:
+2026-03-24T17:29:23.3198495Z   repository: Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.3199431Z   token: ***
+2026-03-24T17:29:23.3199867Z   ssh-strict: true
+2026-03-24T17:29:23.3200313Z   ssh-user: git
+2026-03-24T17:29:23.3200751Z   persist-credentials: true
+2026-03-24T17:29:23.3201257Z   clean: true
+2026-03-24T17:29:23.3201697Z   sparse-checkout-cone-mode: true
+2026-03-24T17:29:23.3202220Z   fetch-depth: 1
+2026-03-24T17:29:23.3202655Z   fetch-tags: false
+2026-03-24T17:29:23.3203102Z   show-progress: true
+2026-03-24T17:29:23.3203567Z   lfs: false
+2026-03-24T17:29:23.3203988Z   submodules: false
+2026-03-24T17:29:23.3204437Z   set-safe-directory: true
+2026-03-24T17:29:23.3205181Z ##[endgroup]
+2026-03-24T17:29:23.4278916Z Syncing repository: Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4281169Z ##[group]Getting Git version info
+2026-03-24T17:29:23.4282190Z Working directory is '/home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl'
+2026-03-24T17:29:23.4283411Z [command]/usr/bin/git version
+2026-03-24T17:29:23.4327278Z git version 2.53.0
+2026-03-24T17:29:23.4382380Z ##[endgroup]
+2026-03-24T17:29:23.4398835Z Temporarily overriding HOME='/home/runner/work/_temp/075ab82a-1a9c-46dd-abb3-fd6dbbbdcfbd' before making global git config changes
+2026-03-24T17:29:23.4401084Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-24T17:29:23.4404535Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4450787Z Deleting the contents of '/home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl'
+2026-03-24T17:29:23.4455185Z ##[group]Initializing the repository
+2026-03-24T17:29:23.4460569Z [command]/usr/bin/git init /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4583468Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-03-24T17:29:23.4585424Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-03-24T17:29:23.4587817Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-03-24T17:29:23.4588873Z hint: call:
+2026-03-24T17:29:23.4589752Z hint:
+2026-03-24T17:29:23.4591119Z hint: 	git config --global init.defaultBranch <name>
+2026-03-24T17:29:23.4592597Z hint:
+2026-03-24T17:29:23.4593807Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-03-24T17:29:23.4595341Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-03-24T17:29:23.4596593Z hint:
+2026-03-24T17:29:23.4597336Z hint: 	git branch -m <name>
+2026-03-24T17:29:23.4597945Z hint:
+2026-03-24T17:29:23.4599166Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-03-24T17:29:23.4600861Z Initialized empty Git repository in /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl/.git/
+2026-03-24T17:29:23.4603078Z [command]/usr/bin/git remote add origin https://github.com/Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:23.4641181Z ##[endgroup]
+2026-03-24T17:29:23.4642004Z ##[group]Disabling automatic garbage collection
+2026-03-24T17:29:23.4645489Z [command]/usr/bin/git config --local gc.auto 0
+2026-03-24T17:29:23.4681090Z ##[endgroup]
+2026-03-24T17:29:23.4682560Z ##[group]Setting up auth
+2026-03-24T17:29:23.4689618Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-24T17:29:23.4729005Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-24T17:29:23.5122643Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-24T17:29:23.5161925Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-24T17:29:23.5447030Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-24T17:29:23.5489308Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-24T17:29:23.5742421Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-03-24T17:29:23.5785038Z ##[endgroup]
+2026-03-24T17:29:23.5786823Z ##[group]Fetching the repository
+2026-03-24T17:29:23.5796642Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ce6fc7f705a2e313cf1f52c0f385db12e65233ef:refs/remotes/pull/4/merge
+2026-03-24T17:29:25.5346894Z From https://github.com/Web4application/Aura_Full_Project.xlsl
+2026-03-24T17:29:25.5349427Z  * [new ref]         ce6fc7f705a2e313cf1f52c0f385db12e65233ef -> pull/4/merge
+2026-03-24T17:29:25.5384192Z ##[endgroup]
+2026-03-24T17:29:25.5384725Z ##[group]Determining the checkout info
+2026-03-24T17:29:25.5387444Z ##[endgroup]
+2026-03-24T17:29:25.5394193Z [command]/usr/bin/git sparse-checkout disable
+2026-03-24T17:29:25.5445956Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-03-24T17:29:25.5479907Z ##[group]Checking out the ref
+2026-03-24T17:29:25.5485295Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4/merge
+2026-03-24T17:29:26.5797567Z Updating files:  94% (950/1006)
+2026-03-24T17:29:26.6016291Z Updating files:  95% (956/1006)
+2026-03-24T17:29:26.6323887Z Updating files:  96% (966/1006)
+2026-03-24T17:29:26.6374171Z Updating files:  97% (976/1006)
+2026-03-24T17:29:26.6440816Z Updating files:  98% (986/1006)
+2026-03-24T17:29:26.6447867Z Updating files:  99% (996/1006)
+2026-03-24T17:29:26.6448567Z Updating files: 100% (1006/1006)
+2026-03-24T17:29:26.6449061Z Updating files: 100% (1006/1006), done.
+2026-03-24T17:29:26.6467401Z Note: switching to 'refs/remotes/pull/4/merge'.
+2026-03-24T17:29:26.6467924Z 
+2026-03-24T17:29:26.6468301Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-03-24T17:29:26.6469669Z changes and commit them, and you can discard any commits you make in this
+2026-03-24T17:29:26.6470476Z state without impacting any branches by switching back to a branch.
+2026-03-24T17:29:26.6470953Z 
+2026-03-24T17:29:26.6471337Z If you want to create a new branch to retain commits you create, you may
+2026-03-24T17:29:26.6472322Z do so (now or later) by using -c with the switch command. Example:
+2026-03-24T17:29:26.6472776Z 
+2026-03-24T17:29:26.6472960Z   git switch -c <new-branch-name>
+2026-03-24T17:29:26.6473269Z 
+2026-03-24T17:29:26.6473393Z Or undo this operation with:
+2026-03-24T17:29:26.6473620Z 
+2026-03-24T17:29:26.6473730Z   git switch -
+2026-03-24T17:29:26.6473860Z 
+2026-03-24T17:29:26.6474078Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-03-24T17:29:26.6474441Z 
+2026-03-24T17:29:26.6474821Z HEAD is now at ce6fc7f Merge c12c3d887c823df1aeb3d9b23baba6fc497c7590 into a6534bb070c6a4914a7179629284d5ea94e7338c
+2026-03-24T17:29:26.6789277Z Encountered 28 files that should have been pointers, but weren't:
+2026-03-24T17:29:26.6790139Z 	Aura.xlsl.zip
+2026-03-24T17:29:26.6790570Z 	Auraecosystem.png
+2026-03-24T17:29:26.6790940Z 	Copilot_20251223_105117.png
+2026-03-24T17:29:26.6791424Z 	Wsl/cd ~wsl --export Aura .\WSL\YunoHost.tar.gz
+2026-03-24T17:29:26.6791920Z 	ai/scripts/kubu_hai_model.onnx
+2026-03-24T17:29:26.6792236Z 	aura.dev/web-features/scripts/Docs/Auraecosystem.png
+2026-03-24T17:29:26.6792609Z 	aura.dev/web-features/scripts/Docs/ray-so-export.png
+2026-03-24T17:29:26.6793117Z 	aura_genesis_system_signalbus/core/bio_plugin/daemon/neuro/VoiceAuthenticationModel.mlmodel
+2026-03-24T17:29:26.6793593Z 	blog/Auraecosystem.png
+2026-03-24T17:29:26.6793824Z 	blog/ray-so-export.png
+2026-03-24T17:29:26.6794066Z 	data/paperweb/github-mcp-server.exe
+2026-03-24T17:29:26.6794354Z 	data/paperweb/kubu_hai_model.onnx
+2026-03-24T17:29:26.6795053Z 	dfinity/llm/releases/latest/download/llm-canister-ollama.wasm
+2026-03-24T17:29:26.6795508Z 	github-mcp-server.exe
+2026-03-24T17:29:26.6795805Z 	kubu_hai_model.onnx
+2026-03-24T17:29:26.6796021Z 	libwebp-0.3.1.tar.gz
+2026-03-24T17:29:26.6796538Z 	libwebp-1.5.0-ios-framework.tar.gz.asc
+2026-03-24T17:29:26.6796842Z 	paperweb.com/Copilot_20251223_105117.png
+2026-03-24T17:29:26.6797113Z 	ray-so-export.png
+2026-03-24T17:29:26.6797440Z 	ray.so/Auraecosystem.theme=openai/Auraecosystem.png
+2026-03-24T17:29:26.6798219Z 	ray.so/Auraecosystem.theme=openai/Auraecosystem.theme=openai 2.png
+2026-03-24T17:29:26.6799031Z 	ray.so/Auraecosystem.theme=openai/ray-so-export.png
+2026-03-24T17:29:26.6799565Z 	streamlit run aura_app.py/__init__.pkl
+2026-03-24T17:29:26.6799853Z 	tools/latest.tar.gz.tar
+2026-03-24T17:29:26.6800193Z 	tools/tinycc-c004e9a34fb026bb44d211ab98bb768e79900eef.tar.gz.sig
+2026-03-24T17:29:26.6800569Z 	web.dev/docs/Auraecosystem.png
+2026-03-24T17:29:26.6800889Z 	web.dev/docs/Auraecosystem.theme=openai 2.png
+2026-03-24T17:29:26.6801193Z 	web.dev/docs/ray-so-export.png
+2026-03-24T17:29:26.6830122Z ##[endgroup]
+2026-03-24T17:29:26.6874943Z [command]/usr/bin/git log -1 --format=%H
+2026-03-24T17:29:26.6902194Z ce6fc7f705a2e313cf1f52c0f385db12e65233ef
+2026-03-24T17:29:26.7185818Z ##[group]Run actions/setup-node@v4
+2026-03-24T17:29:26.7186468Z with:
+2026-03-24T17:29:26.7186673Z   node-version: 20
+2026-03-24T17:29:26.7186881Z   cache: npm
+2026-03-24T17:29:26.7187167Z   cache-dependency-path: script/validate-data/package-lock.json
+2026-03-24T17:29:26.7187525Z   always-auth: false
+2026-03-24T17:29:26.7187737Z   check-latest: false
+2026-03-24T17:29:26.7188126Z   token: ***
+2026-03-24T17:29:26.7188324Z ##[endgroup]
+2026-03-24T17:29:26.9047446Z Found in cache @ /opt/hostedtoolcache/node/20.20.1/x64
+2026-03-24T17:29:26.9054248Z ##[group]Environment details
+2026-03-24T17:29:27.2893995Z node: v20.20.1
+2026-03-24T17:29:27.2894402Z npm: 10.8.2
+2026-03-24T17:29:27.2894764Z yarn: 1.22.22
+2026-03-24T17:29:27.2895568Z ##[endgroup]
+2026-03-24T17:29:27.2922481Z [command]/opt/hostedtoolcache/node/20.20.1/x64/bin/npm config get cache
+2026-03-24T17:29:27.4149587Z /home/runner/.npm
+2026-03-24T17:29:27.4315296Z ##[error]Some specified paths were not resolved, unable to cache dependencies.
+2026-03-24T17:29:27.4556538Z Post job cleanup.
+2026-03-24T17:29:27.5410718Z [command]/usr/bin/git version
+2026-03-24T17:29:27.5450860Z git version 2.53.0
+2026-03-24T17:29:27.5523491Z Temporarily overriding HOME='/home/runner/work/_temp/9fac3001-0330-450e-8ec7-e59e00ff8fa1' before making global git config changes
+2026-03-24T17:29:27.5524688Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-24T17:29:27.5530161Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Aura_Full_Project.xlsl/Aura_Full_Project.xlsl
+2026-03-24T17:29:27.5573980Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-24T17:29:27.5613711Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-24T17:29:27.5874823Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-24T17:29:27.5903943Z http.https://github.com/.extraheader
+2026-03-24T17:29:27.5916478Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-03-24T17:29:27.5954439Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-24T17:29:27.6214134Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-24T17:29:27.6251474Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-24T17:29:27.6660465Z Cleaning up orphan processes
+2026-03-24T17:29:27.6958655Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/setup-node@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
