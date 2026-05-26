@@ -6,19 +6,20 @@
 # See https://github.com/r-lib/actions/tree/master/examples#readme for
 # additional example workflows available for the R community.
 
-name: R
+name: R-lib
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-permissions:
+    branches:  main
+  pull_request: 
+  workflow_run:
+    branches:
+      - main
+permissions: 
   contents: read
 
 jobs:
-  build:
+  build: 
     runs-on: macos-latest
     strategy:
       matrix:
