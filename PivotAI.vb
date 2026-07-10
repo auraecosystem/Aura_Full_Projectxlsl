@@ -4,3 +4,5 @@ Sub AddSlicers()
     Set pt = ws.PivotTables("PivotAI")
     ws.Slicers.Add pt, "Item", "AI Item Slicer"
 End Sub
+
+        
