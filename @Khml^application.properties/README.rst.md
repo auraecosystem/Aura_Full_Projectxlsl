@@ -1,5 +1,9 @@
-
 ---
+tittle: Aura sctm
+note: description 
+description: 
+---
+
 	1.	Color-coded table with module scores (Iₙ, Rₜ, Sₘ)
 	2.	ASCII workflow diagram showing dependencies and prioritization
 --- 
@@ -12,6 +16,7 @@ This creates a full, self-contained SCTM project dashboard in Markdown.
 # Web4App Aura – SCTM Dashboard
 
 ## Legend
+```pq
 - 🔵 Project Core  
 - 🟢 Quantum Activity  
 - 🟡 Sparks  
@@ -20,12 +25,14 @@ This creates a full, self-contained SCTM project dashboard in Markdown.
 - 🟣 Dimensions  
 - 🔷 XLSL Sheets  
 - 📊 Bars = SCTM Score (Sₘ)  
-- Color Coding: 🟩 High (>60), 🟨 Medium (40–60), 🟥 Low (<40)  
+- Color Coding: 🟩 High (>60), 🟨 Medium (40–60), 🟥 Low (<40)
+``` 
 
 ---
 
 ## 1️⃣ Module Scores Table
 
+```R
 | Module            | Iₙ (Weighted Score) | Bar           | Rₜ (Teleportation Risk) | Bar     | Sₘ (Dynamic Score) | Bar           |
 |------------------|-------------------|---------------|------------------------|---------|------------------|---------------|
 | Quantum Activity  | 85                | 🟩🟩🟩🟩🟩🟩🟩🟩🟩 | 0.3                    | 🟨🟨     | 59.5             | 🟩🟩🟩🟩🟩🟩🟩       |
@@ -33,11 +40,12 @@ This creates a full, self-contained SCTM project dashboard in Markdown.
 | Nodes             | 90                | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 | 0.2                    | 🟨       | 72               | 🟩🟩🟩🟩🟩🟩🟩🟩     |
 | Dimensions        | 65                | 🟨🟨🟨🟨🟨🟨     | 0.4                    | 🟥🟥🟥    | 39               | 🟨🟨🟨🟨          |
 | XLSL Sheets       | 70                | 🟩🟩🟩🟩🟩🟩🟨   | 0.35                   | 🟨🟨🟨    | 45.5             | 🟨🟨🟨🟨🟨         |
-
+```
 ---
 
 ## 2️⃣ SCTM Workflow Diagram
 
+```xlsl
       🔵 Project Core
              |
 ----------------------------------------
@@ -53,8 +61,8 @@ Sₘ:59.5   Sₘ:36      Sₘ:72       Sₘ:39
 🔴 Teleportation Risk (Dependencies / Bottlenecks)
 |        |           |            |
 
-             
-			 🔷 XLSL Sheets
+
+   🔷 XLSL Sheets
 
 Iₙ:70
 Rₜ:0.35
@@ -69,7 +77,7 @@ Sₘ:45.5
 	•	XLSL Sheets (Sₘ=45.5) → Medium priority
 	•	Sparks (Sₘ=36) → Low priority
 	•	Dimensions (Sₘ=39) → Low priority
-
+```
 ---
 
 ### ✅ How to Use
