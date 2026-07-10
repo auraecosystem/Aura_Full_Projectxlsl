@@ -1,4 +1,4 @@
-# Expanding Aura.xlsx into STEM
+# Expanding Aura.xlsx into STEM 
 modules: Pure Mathematics,
 Further Mathematics, Applied
 Physics, Reasoning Logic,
